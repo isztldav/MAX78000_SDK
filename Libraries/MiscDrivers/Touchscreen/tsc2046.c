@@ -42,9 +42,6 @@
 #include "gpio.h"
 
 /************************************ DEFINES ********************************/
-#define TS_SPI0_PINS            MXC_GPIO_PIN_5 | MXC_GPIO_PIN_6 | MXC_GPIO_PIN_7 | MXC_GPIO_PIN_10
-#define TS_SPI_FREQ             1000000 // Hz
-
 #ifndef FLIP_SCREEN
 #define FLIP_SCREEN 0
 #endif
@@ -68,8 +65,10 @@ static TS_Buttons_t ts_buttons[TS_MAX_BUTTONS];
 static int pressed_key = 0;
 static mxc_spi_regs_t* t_spi;
 static int t_ssel;
-static mxc_gpio_cfg_t* int_gpio;
-static mxc_gpio_cfg_t* busy_gpio;
+static unsigned int t_spi_freq;
+static mxc_gpio_cfg_t int_gpio;
+static mxc_gpio_cfg_t busy_gpio;
+static mxc_gpio_cfg_t t_spi_gpio;
 
 /********************************* Static Functions **************************/
 static int is_inBox(int x, int y, int x0, int y0, int x1, int y1)
@@ -95,7 +94,7 @@ static void spi_transmit_tsc2046(mxc_ts_touch_cmd_t datain, unsigned short* data
     request.txLen = 1;
     request.rxLen = 0;
 
-    MXC_SPI_SetFrequency(t_spi, TS_SPI_FREQ);
+    MXC_SPI_SetFrequency(t_spi, t_spi_freq);
     MXC_SPI_SetDataSize(t_spi, 8);
 
     MXC_SPI_MasterTransaction(&request);
@@ -187,21 +186,9 @@ static void tsHandler(void)
         }
     }
 
-    MXC_GPIO_ClearFlags(int_gpio->port, int_gpio->mask);
+    MXC_GPIO_ClearFlags(int_gpio.port, int_gpio.mask);
 
     MXC_TS_Start();
-}
-
-static void ts_gpio_init(void)
-{
-
-    // Touchscreen busy pin
-    MXC_GPIO_Config(busy_gpio);
-
-    // Touchscreen interrupt pin
-    MXC_GPIO_Config(int_gpio);
-
-    MXC_GPIO_RegisterCallback(int_gpio, (mxc_gpio_callback_fn)tsHandler, NULL);
 }
 
 static void ts_spi_Init(void)
@@ -210,7 +197,14 @@ static void ts_spi_Init(void)
     int quadMode = 0;
     int numSlaves = 2;
     int ssPol = 0;
-    unsigned int ts_hz = TS_SPI_FREQ;
+
+#if defined(OLD_SPI_API) // Defined in spi.h file if the driver if first version
+    MXC_SPI_Init(t_spi,  master, quadMode, numSlaves, ssPol, t_spi_freq);
+    // Todo: 
+    // Missing SS selection.
+    // There is not API in driver, 
+    // Default SS is used for MAX32570 so it works.
+#else
     mxc_spi_pins_t ts_pins;
 
     ts_pins.clock = true;
@@ -222,26 +216,53 @@ static void ts_spi_Init(void)
     ts_pins.sdio2 = false;     ///< SDIO2 pin
     ts_pins.sdio3 = false;     ///< SDIO3 pin
 
-    MXC_SPI_Init(t_spi,  master, quadMode, numSlaves, ssPol, ts_hz, ts_pins);
+    MXC_SPI_Init(t_spi,  master, quadMode, numSlaves, ssPol, t_spi_freq, ts_pins);
+#endif
 
-    // Set  SPI0 pins to VDDIOH (3.3V) to be compatible with touch screen
-    MXC_GPIO_SetVSSEL(MXC_GPIO0, MXC_GPIO_VSSEL_VDDIOH, TS_SPI0_PINS);
+    // Set VSSEL
+    MXC_GPIO_SetVSSEL(t_spi_gpio.port, t_spi_gpio.vssel, t_spi_gpio.mask);
     MXC_SPI_SetDataSize(t_spi, 8);
     MXC_SPI_SetWidth(t_spi, SPI_WIDTH_STANDARD);
 }
 
 /********************************* Public Functions **************************/
-int MXC_TS_Init(mxc_spi_regs_t* ts_spi, int ss_idx,  mxc_gpio_cfg_t* int_pin, mxc_gpio_cfg_t* busy_pin)
+int MXC_TS_PreInit(mxc_ts_spi_config *spi_config,  mxc_gpio_cfg_t* int_pin, mxc_gpio_cfg_t* busy_pin)
 {
     int result = E_NO_ERROR;
 
-    t_spi = ts_spi;
-    t_ssel = ss_idx;
-    int_gpio = int_pin;
-    busy_gpio = busy_pin;
+    if ( (int_pin == NULL) || (spi_config == NULL) ) {
+        return -1;
+    }
+
+    t_spi      = spi_config->regs;
+    t_ssel     = spi_config->ss_idx;
+    t_spi_freq = spi_config->freq;
+    int_gpio   = *int_pin;
+    t_spi_gpio = spi_config->gpio;
+
+    if (busy_pin) {
+        busy_gpio = *busy_pin;
+    } else {
+        busy_gpio.port = NULL; // means not initialized
+    }
+
+    return result;
+}
+
+int MXC_TS_Init(void)
+{
+    int result = E_NO_ERROR;
 
     // Configure GPIO Pins
-    ts_gpio_init();
+    
+    if (busy_gpio.port) {
+        // Touchscreen busy pin
+        MXC_GPIO_Config(&busy_gpio);
+    }
+    // Touchscreen interrupt pin
+    MXC_GPIO_Config(&int_gpio);
+    //
+    MXC_GPIO_RegisterCallback(&int_gpio, (mxc_gpio_callback_fn)tsHandler, NULL);
 
     // Configure SPI Pins
     ts_spi_Init();
@@ -250,9 +271,9 @@ int MXC_TS_Init(mxc_spi_regs_t* ts_spi, int ss_idx,  mxc_gpio_cfg_t* int_pin, mx
 
     // Configure touchscreen interrupt
 #ifndef __riscv
-    NVIC_SetPriority(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(int_gpio->port)), 5);
+    NVIC_SetPriority(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(int_gpio.port)), 5);
 #endif
-    NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(int_gpio->port)));
+    NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(MXC_GPIO_GET_IDX(int_gpio.port)));
 
     MXC_TS_Stop();
 
@@ -262,12 +283,12 @@ int MXC_TS_Init(mxc_spi_regs_t* ts_spi, int ss_idx,  mxc_gpio_cfg_t* int_pin, mx
 void MXC_TS_Start(void)
 {
     spi_transmit_tsc2046(TSC_START, NULL);
-    MXC_GPIO_EnableInt(int_gpio->port, int_gpio->mask);
+    MXC_GPIO_EnableInt(int_gpio.port, int_gpio.mask);
 }
 
 void MXC_TS_Stop(void)
 {
-    MXC_GPIO_DisableInt(int_gpio->port, int_gpio->mask);
+    MXC_GPIO_DisableInt(int_gpio.port, int_gpio.mask);
     spi_transmit_tsc2046(TSC_STOP, NULL);
 }
 

@@ -63,18 +63,32 @@ typedef enum {
     TSC_STOP    = (0x81 | 0x00 | 0x00)
 } mxc_ts_touch_cmd_t;
 
+typedef struct {
+    mxc_spi_regs_t *regs;   // The SPI instance the touchscreen controller is connected to
+    mxc_gpio_cfg_t  gpio;   // The SPI pins: MOSI, MISO, SCK, SS, must define all them
+    unsigned int    freq;   // The SPI frequency
+    int             ss_idx; // The SSEL index to use when communicating with the touchscreen controller
+} mxc_ts_spi_config;
+
 /************************************************************************************/
+
 /**
- * @brief      Initialize the touchscreen and display
+ * @brief      Used to register hw related configuration, need to be called before MXC_TS_Init()
  *
- * @param      ts_spi           The SPI instance the touchscreen controller is connected to
- * @param      ss_idx           The SSEL index to use when communicating with the touchscreen controller
- * @param      reset_ctrl       The GPIO pin configuration for the touchscreen controller's interrupt pin
- * @param      bl_ctrl          The GPIO pin configuration for the touchscreen controller's busy pin
+ * @param      spi_config   Touch screen SPI configuration, SPI instance, freq, pins slave slect id
+ * @param      int_pin      The GPIO pin configuration for the touchscreen controller's interrupt pin
+ * @param      busy_pin     The GPIO pin configuration for the touchscreen controller's busy pin
  *
  * @return     See \ref MXC_Error_Codes for a list of return codes.
  */
-int MXC_TS_Init(mxc_spi_regs_t* ts_spi, int ss_idx,  mxc_gpio_cfg_t* int_pin, mxc_gpio_cfg_t* busy_pin);
+int MXC_TS_PreInit(mxc_ts_spi_config *spi_config,  mxc_gpio_cfg_t* int_pin, mxc_gpio_cfg_t* busy_pin);
+
+/**
+ * @brief      Initialize the touchscreen controller
+ *
+ * @return     See \ref MXC_Error_Codes for a list of return codes.
+ */
+int MXC_TS_Init(void);
 
 /**
  * @brief      Enables touch interrupts

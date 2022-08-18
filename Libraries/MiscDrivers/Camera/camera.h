@@ -39,12 +39,16 @@
 
 #if defined(CAMERA_HM01B0)
 #include "hm01b0_regs.h"
-#elif defined(CAMERA_HM0360)
+#elif defined(CAMERA_HM0360_MONO)
+#include "hm0360_regs.h"
+#elif defined(CAMERA_HM0360_COLOR)
 #include "hm0360_regs.h"
 #elif defined(CAMERA_OV5642)
 #include "ov5642_regs.h"
 #elif defined(CAMERA_OV7692)
 #include "ov7692_regs.h"
+#elif defined(CAMERA_PAG7920)
+#include "pag7920_regs.h"
 #endif
 
 #include "tmr_regs.h"
@@ -99,10 +103,10 @@ typedef struct _camera {
     int (*dump_registers)(void);
     int (*reset)(void);
     int (*sleep)(int enable);
-#if defined(CAMERA_HM01B0) || (CAMERA_HM0360) || defined(CAMERA_OV5642)
+#if defined(CAMERA_HM01B0) || (CAMERA_HM0360_MONO) || (CAMERA_HM0360_COLOR) || defined(CAMERA_OV5642)
     int (*read_reg)(uint16_t reg_addr, uint8_t* reg_data);
     int (*write_reg)(uint16_t reg_addr, uint8_t reg_data);
-#else  //(CAMERA_OV7692)
+#else  //(CAMERA_OV7692) || (CAMERA_PAG7920)
     int (*read_reg)(uint8_t reg_addr, uint8_t* reg_data);
     int (*write_reg)(uint8_t reg_addr, uint8_t reg_data);
 #endif
@@ -151,11 +155,11 @@ int camera_sleep(int enable);
 // Shutdown mode.
 int camera_shutdown(int enable);
 
-#if defined(CAMERA_HM01B0) || (CAMERA_HM0360) ||defined(CAMERA_OV5642)
+#if defined(CAMERA_HM01B0) || (CAMERA_HM0360_MONO) || (CAMERA_HM0360_COLOR) || defined(CAMERA_OV5642)
 // Write a sensor register.
 int camera_write_reg(uint16_t reg_addr, uint8_t reg_data);
 int camera_read_reg(uint16_t reg_addr, uint8_t* reg_data);
-#else //(CAMERA_OV7692)
+#else //(CAMERA_OV7692) || (CAMERA_PAG7920)
 // Write a sensor register.
 int camera_write_reg(uint8_t reg_addr, uint8_t reg_data);
 // Read a sensor register.
@@ -207,6 +211,9 @@ int camera_get_luminance_level(int* lum);
 
 // Get camera streaming buffer.
 uint8_t* get_camera_stream_buffer(void);
+
+// Get camera streaming buffer size (in bytes)
+int camera_get_stream_buffer_size(void);
 
 // Release camera streaming buffer.
 void release_camera_stream_buffer(void);

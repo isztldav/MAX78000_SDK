@@ -73,7 +73,7 @@ SECTIONS {
         . = ALIGN(4);
         *(.shared*)     /*read-write zero initialized data: uninitialzed global variable*/
         _eshared = ALIGN(., 4);
-    } > SRAM2 AT>FLASH
+    } > SRAM5 AT>FLASH
     __shared_data = LOADADDR(.shared);
 
     .data :

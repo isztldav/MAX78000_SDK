@@ -40,17 +40,18 @@
 ################################################################################
 
 ifeq "$(PERIPH_DRIVER_DIR)" ""
-$(error "PERIPH_DRIVER_DIR must be specified")
+# If PERIPH_DRIVER_DIR is not specified, this Makefile will locate itself.
+PERIPH_DRIVER_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 endif
 
-TARGET_UC:=$(shell echo $(TARGET) | tr a-z A-Z)
-TARGET_LC:=$(shell echo $(TARGET) | tr A-Z a-z)
+TARGET_UC ?= $(subst m,M,$(subst a,A,$(subst x,X,$(TARGET))))
+TARGET_LC ?= $(subst M,m,$(subst A,a,$(subst X,x,$(TARGET))))
 
 # Specify the library variant.
-ifeq "$(MFLOAT_FLAGS)" "hardfp"
+ifeq "$(MFLOAT_ABI)" "hardfp"
 LIBRARY_VARIANT=hardfp
 else
-ifeq "$(MFLOAT_FLAGS)" "hard"
+ifeq "$(MFLOAT_ABI)" "hard"
 LIBRARY_VARIANT=hardfp
 else
 LIBRARY_VARIANT=softfp
@@ -78,6 +79,7 @@ export MXC_OPTIMIZE_CFLAGS
 export DUAL_CORE
 export RISCV_CORE
 export RISCV_LOAD
+export MFLOAT_ABI
 
 include ${PERIPH_DRIVER_DIR}/$(TARGET_LC)_files.mk
 IPATH += ${PERIPH_DRIVER_INCLUDE_DIR}

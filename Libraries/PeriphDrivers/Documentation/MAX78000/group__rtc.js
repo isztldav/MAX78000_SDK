@@ -25,12 +25,13 @@ var group__rtc =
     [ "MXC_RTC_GetSecond", "group__rtc.html#ga3e2aa5c188abff60e6ead9726ef272cf", null ],
     [ "MXC_RTC_GetSubSecond", "group__rtc.html#gaa0c3ee434b206af0469de43ba32133f1", null ],
     [ "MXC_RTC_GetTime", "group__rtc.html#gaba6f82b7e4b7aa86906af65074412673", null ],
-    [ "MXC_RTC_Init", "group__rtc.html#ga12ddfdd7e1a02c94d4803f00ca7cae35", null ],
+    [ "MXC_RTC_Init", "group__rtc.html#gaf787cc7c9cca906f8a1a08575b367441", null ],
     [ "MXC_RTC_SetSubsecondAlarm", "group__rtc.html#gacb314ed0950eaeacdad1f599aa2e5d94", null ],
     [ "MXC_RTC_SetTimeofdayAlarm", "group__rtc.html#gaed7764f5a83cfb63f5ccaacb32a3a4ad", null ],
     [ "MXC_RTC_SquareWaveStart", "group__rtc.html#ga896e4f2d9b2e92dbe58022e3e78a741f", null ],
     [ "MXC_RTC_SquareWaveStop", "group__rtc.html#gab98bbf2602a66e6c457f4dda7be7b0d1", null ],
     [ "MXC_RTC_Start", "group__rtc.html#gac5e6c308be3e4ecdf17baeb10c5a5bed", null ],
     [ "MXC_RTC_Stop", "group__rtc.html#ga089f49e102942ac2e61590bd33b75abd", null ],
-    [ "MXC_RTC_Trim", "group__rtc.html#ga6db76b4d1659b9286b9faa8c72312b3e", null ]
+    [ "MXC_RTC_Trim", "group__rtc.html#ga6db76b4d1659b9286b9faa8c72312b3e", null ],
+    [ "MXC_RTC_TrimCrystal", "group__rtc.html#ga99cf3651cf36c2b2a8d6ea27d68f2bd7", null ]
 ];

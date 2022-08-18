@@ -4,6 +4,45 @@ Refer to [Getting Started with the MAX78000 Evaluation Kit](https://github.com/M
 
 ## Release Notes
 
+August 7, 2022
+* Updated CMSIS library to version 5.9.0.
+* Improved MIPI-CSI2 API.
+* Added support for flash read and flash write locking.
+* Improved RTC busy flag checking.
+* Added multi-transaction mode to SPI API.
+* Added support to select the voltage levels (VDDIO or VDDIOH) for the 
+  camera interface.
+* Added Winbond SPI Flash driver.
+* Added VS Code project files for all examples.
+* Added makefile switch to allow selection of ARM ABI.
+* Added missing definition for GCR_RST.usb field.
+* Added missing USB register definitions.
+* Fixed incorrect size of RTC_SSEC.ssec field.
+* Improved support for IPLL and EBO clocks.
+* Improved the makefile system.
+* Added function to get/set the system clock divider.
+* Added aisegment_unet, camvid_unet, cifar-100-mixed, cifar-100-residual, 
+  cifar-100-simplewide2x-mixed, digit-detection-demo, svhn_tinierssd, 
+  UNet-highres-demo, and ImgCapture-Serial, ARM-DSP, cifar-100-effnet2, 
+  cifar-200-mobilenet-v2-0.75, imagenet, and WearLeveling examples.
+* Added ability to seperately enable/disable the instruction caches.
+* Abstracted external memory interfaces into a common set of functions.
+* Added support for PAG7920, color HM0360, monochrome HM0360 cameras.
+* Deprecated NVIC_SetVector (CMSIS 3 version) in favor 
+  of MXC_NVIC_SetVector
+* Changed presence pulse register flag location in the
+  1-wire registers 
+* Modified ADC asynchronous conversion function to accept the 
+  configuration parameter by reference
+* Fixed bug when using an ADC external scale setting of 3
+* Added correct cache flushing code after all flash writes
+* Added generic transmit functions for I2S
+* Fixed error that caused I2C underflows to no be reported correctly
+* Improved asynchronous I2C master transactions 
+* Fixed I2C slave bug that would attempt to call the callback functions
+  even when one had not been provided
+* Changed the RTC get time funtion to not block when the RTC was busy
+
 April 11, 2022
 * Added power down mode to MAX78000 and MAX78002 LP examples.
 * Added support for various cameras into the MAX78002 CameraIF example.

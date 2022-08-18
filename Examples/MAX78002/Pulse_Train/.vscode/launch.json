@@ -38,6 +38,9 @@
                 {"text":"-list-features"}
             ],
             "setupCommands": [
+                { "text":"set logging overwrite on"},
+                { "text":"set logging file debug-arm.log"},
+                { "text":"set logging on"},
                 { "text":"cd ${workspaceFolder}" },
                 { "text":"exec-file build/${config:program_file}" },
                 { "text":"symbol-file build/${config:symbol_file}" },
@@ -52,21 +55,21 @@
             "request": "launch",
             "program": "${workspaceFolder}/buildrv/${config:program_file}",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
             "linux": {
-                "miDebuggerPath": "${config:ARM_GCC_path}/bin/arm-none-eabi-gdb",
+                "miDebuggerPath": "${config:xPack_GCC_path}/bin/riscv-none-embed-gdb",
                 "debugServerPath": "${config:OCD_path}/openocd",
             },
             "windows": {
-                "miDebuggerPath": "${config:ARM_GCC_path}/bin/arm-none-eabi-gdb.exe",
+                "miDebuggerPath": "${config:xPack_GCC_path}/bin/riscv-none-embed-gdb.exe",
                 "debugServerPath": "${config:OCD_path}/openocd.exe",
             },
             "osx": {
-                "miDebuggerPath": "${config:ARM_GCC_path}/bin/arm-none-eabi-gdb",
+                "miDebuggerPath": "${config:xPack_GCC_path}/bin/riscv-none-embed-gdb",
                 "debugServerPath": "${config:OCD_path}/bin/openocd",
             },
             "logging": {
@@ -84,11 +87,15 @@
             ],
             "targetArchitecture": "arm",
             "setupCommands": [
+                { "text":"set logging overwrite on"},
+                { "text":"set logging file debug-riscv.log"},
+                { "text":"set logging on"},
                 { "text":"cd ${workspaceFolder}" },
                 { "text": "set architecture riscv:rv32", "ignoreFailures": false },          
                 { "text":"exec-file build/${config:program_file}", "ignoreFailures": false },
                 { "text":"symbol-file buildrv/${config:symbol_file}", "ignoreFailures": false },
                 { "text":"target remote localhost:3334" },
+                { "text":"b main" },
                 { "text": "set $pc=Reset_Handler","ignoreFailures": false }
             ]
         }

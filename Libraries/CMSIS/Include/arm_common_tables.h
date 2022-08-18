@@ -1,3 +1,11 @@
+#warning This file has been deprecated for newer versions of CMSIS-DSP.
+/* 
+This header file is for use with the older CMSIS-DSP pre-compiled libraries
+in the Libraries\CMSIS\Lib\GCC folder.  That library is CMSIS version 3.
+The MaximSDK now contains CMSIS version 5.9.0, which should be used instead.
+The newer header files can be found in the Libraries\CMSIS\5.9.0\DSP\Include
+folder, and these should be used instead.
+*/
 /**
  * @file    arm_common_tables.h
  * @brief   External declaration for common tables like Bitreverse, reciprocal etc.
@@ -43,8 +51,6 @@
 * POSSIBILITY OF SUCH DAMAGE.
 * -------------------------------------------------------------------- */
 
-
-
 #ifndef _ARM_COMMON_TABLES_H
 #define _ARM_COMMON_TABLES_H
 
@@ -76,13 +82,12 @@ extern const float32_t twiddleCoef_rfft_1024[1024];
 extern const float32_t twiddleCoef_rfft_2048[2048];
 extern const float32_t twiddleCoef_rfft_4096[4096];
 
-
-#define ARMBITREVINDEXTABLE__16_TABLE_LENGTH ((uint16_t)20  )
-#define ARMBITREVINDEXTABLE__32_TABLE_LENGTH ((uint16_t)48  )
-#define ARMBITREVINDEXTABLE__64_TABLE_LENGTH ((uint16_t)56  )
-#define ARMBITREVINDEXTABLE_128_TABLE_LENGTH ((uint16_t)208 )
-#define ARMBITREVINDEXTABLE_256_TABLE_LENGTH ((uint16_t)440 )
-#define ARMBITREVINDEXTABLE_512_TABLE_LENGTH ((uint16_t)448 )
+#define ARMBITREVINDEXTABLE__16_TABLE_LENGTH ((uint16_t)20)
+#define ARMBITREVINDEXTABLE__32_TABLE_LENGTH ((uint16_t)48)
+#define ARMBITREVINDEXTABLE__64_TABLE_LENGTH ((uint16_t)56)
+#define ARMBITREVINDEXTABLE_128_TABLE_LENGTH ((uint16_t)208)
+#define ARMBITREVINDEXTABLE_256_TABLE_LENGTH ((uint16_t)440)
+#define ARMBITREVINDEXTABLE_512_TABLE_LENGTH ((uint16_t)448)
 #define ARMBITREVINDEXTABLE1024_TABLE_LENGTH ((uint16_t)1800)
 #define ARMBITREVINDEXTABLE2048_TABLE_LENGTH ((uint16_t)3808)
 #define ARMBITREVINDEXTABLE4096_TABLE_LENGTH ((uint16_t)4032)

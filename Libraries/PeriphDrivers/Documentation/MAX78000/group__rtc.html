@@ -114,8 +114,8 @@ Functions</h2></td></tr>
 <tr class="separator:gac5e6c308be3e4ecdf17baeb10c5a5bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga089f49e102942ac2e61590bd33b75abd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#ga089f49e102942ac2e61590bd33b75abd">MXC_RTC_Stop</a> (void)</td></tr>
 <tr class="separator:ga089f49e102942ac2e61590bd33b75abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga12ddfdd7e1a02c94d4803f00ca7cae35"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#ga12ddfdd7e1a02c94d4803f00ca7cae35">MXC_RTC_Init</a> (uint32_t sec, uint8_t ssec)</td></tr>
-<tr class="separator:ga12ddfdd7e1a02c94d4803f00ca7cae35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf787cc7c9cca906f8a1a08575b367441"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#gaf787cc7c9cca906f8a1a08575b367441">MXC_RTC_Init</a> (uint32_t sec, uint16_t ssec)</td></tr>
+<tr class="separator:gaf787cc7c9cca906f8a1a08575b367441"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga896e4f2d9b2e92dbe58022e3e78a741f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#ga896e4f2d9b2e92dbe58022e3e78a741f">MXC_RTC_SquareWaveStart</a> (<a class="el" href="group__rtc.html#ga5c85a643a530f9c5252170d930e36ab3">mxc_rtc_freq_sel_t</a> fq)</td></tr>
 <tr class="separator:ga896e4f2d9b2e92dbe58022e3e78a741f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab98bbf2602a66e6c457f4dda7be7b0d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#gab98bbf2602a66e6c457f4dda7be7b0d1">MXC_RTC_SquareWaveStop</a> (void)</td></tr>
@@ -138,6 +138,8 @@ Functions</h2></td></tr>
 <tr class="separator:gaba6f82b7e4b7aa86906af65074412673"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga208d3d95aac1f0ffe30d27759a1c4657"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#ga208d3d95aac1f0ffe30d27759a1c4657">MXC_RTC_GetBusyFlag</a> (void)</td></tr>
 <tr class="separator:ga208d3d95aac1f0ffe30d27759a1c4657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99cf3651cf36c2b2a8d6ea27d68f2bd7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtc.html#ga99cf3651cf36c2b2a8d6ea27d68f2bd7">MXC_RTC_TrimCrystal</a> (void)</td></tr>
+<tr class="separator:ga99cf3651cf36c2b2a8d6ea27d68f2bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
@@ -458,8 +460,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga12ddfdd7e1a02c94d4803f00ca7cae35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga12ddfdd7e1a02c94d4803f00ca7cae35">&#9670;&nbsp;</a></span>MXC_RTC_Init()</h2>
+<a id="gaf787cc7c9cca906f8a1a08575b367441"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf787cc7c9cca906f8a1a08575b367441">&#9670;&nbsp;</a></span>MXC_RTC_Init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -473,7 +475,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>ssec</em>&#160;</td>
         </tr>
         <tr>
@@ -488,7 +490,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sec</td><td>set the RTC Sec counter (32-bit) </td></tr>
-    <tr><td class="paramname">ssec</td><td>set the RTC Sub-second counter (8-bit) </td></tr>
+    <tr><td class="paramname">ssec</td><td>set the RTC Sub-second counter (12-bit) </td></tr>
   </table>
   </dd>
 </dl>
@@ -707,12 +709,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga99cf3651cf36c2b2a8d6ea27d68f2bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99cf3651cf36c2b2a8d6ea27d68f2bd7">&#9670;&nbsp;</a></span>MXC_RTC_TrimCrystal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_RTC_TrimCrystal </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Use the 32 MHz crystal to trim the 32 kHz crystal. </p>
+<p>Assumes that RTC interrupts are disabled and 32 MHz crystal is enabled and selected as the system clock. </p><dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">returns</td><td>trimmed value of 32 kHz crystal or error, see /ref MXC_ERROR_CODES </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Apr 7 2022 08:59:01 for MAX78000 Peripheral Driver API by
+    <li class="footer">Generated on Sun Aug 7 2022 20:17:28 for MAX78000 Peripheral Driver API by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

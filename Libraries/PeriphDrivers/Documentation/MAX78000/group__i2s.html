@@ -142,9 +142,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="separator:gaea4aab510d6353f3afd6440d71af3174"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa90e3cfbfbf7257248bc24278f24cf6a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gaa90e3cfbfbf7257248bc24278f24cf6a">MXC_I2S_SetFrequency</a> (<a class="el" href="group__i2s.html#ga1ef3fa913346974a732fb1356ebc3a83">mxc_i2s_ch_mode_t</a> mode, uint16_t clkdiv)</td></tr>
 <tr class="separator:gaa90e3cfbfbf7257248bc24278f24cf6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6dbd01f7ae1cc8fb47dbf7a3e00157a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gac6dbd01f7ae1cc8fb47dbf7a3e00157a">MXC_I2S_SetSampleRate</a> (uint32_t smpl_rate, <a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a> smpl_sz, uint32_t i2s_clk)</td></tr>
+<tr class="separator:gac6dbd01f7ae1cc8fb47dbf7a3e00157a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf447d855f9066814b276d435b8c01fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gabf447d855f9066814b276d435b8c01fe">MXC_I2S_GetSampleRate</a> (uint32_t i2s_clk)</td></tr>
+<tr class="separator:gabf447d855f9066814b276d435b8c01fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae255170aad3cd2827299aa4275587f9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gae255170aad3cd2827299aa4275587f9d">MXC_I2S_CalculateClockDiv</a> (uint32_t smpl_rate, <a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a> smpl_sz, uint32_t i2s_clk)</td></tr>
+<tr class="separator:gae255170aad3cd2827299aa4275587f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaaf1ce09b163ac273e4a5b2e9759bdaa"><td class="memItemLeft" align="right" valign="top"><a id="gaaaf1ce09b163ac273e4a5b2e9759bdaa"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gaaaf1ce09b163ac273e4a5b2e9759bdaa">MXC_I2S_Flush</a> (void)</td></tr>
 <tr class="separator:gaaaf1ce09b163ac273e4a5b2e9759bdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga611b5e51f365889b8568e26090e8465d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga611b5e51f365889b8568e26090e8465d">MXC_I2S_FillTXFIFO</a> (void *txData, <a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a> wordSize, int len, int smpl_cnt)</td></tr>
+<tr class="separator:ga611b5e51f365889b8568e26090e8465d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0eebb2b9663aeb56f3522e2c6114ef77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga0eebb2b9663aeb56f3522e2c6114ef77">MXC_I2S_ReadRXFIFO</a> (void *rxData, <a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a> wordSize, int len, int smpl_cnt)</td></tr>
+<tr class="separator:ga0eebb2b9663aeb56f3522e2c6114ef77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0df8528fd2309fda3864a7ec6073b7ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga0df8528fd2309fda3864a7ec6073b7ca">MXC_I2S_EnableInt</a> (uint32_t flags)</td></tr>
 <tr class="separator:ga0df8528fd2309fda3864a7ec6073b7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b2857203f73170c4f07ce710bebff10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga9b2857203f73170c4f07ce710bebff10">MXC_I2S_DisableInt</a> (uint32_t flags)</td></tr>
@@ -153,12 +163,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="separator:ga3b89677a1edb6d0da0ccbb2c4de23447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabb681ef254bf67f6652da18748766c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gabb681ef254bf67f6652da18748766c5d">MXC_I2S_ClearFlags</a> (uint32_t flags)</td></tr>
 <tr class="separator:gabb681ef254bf67f6652da18748766c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7aed006acb05a879710b31e4790ce806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga7aed006acb05a879710b31e4790ce806">MXC_I2S_TXDMAConfig</a> (void *src_addr, int len)</td></tr>
-<tr class="separator:ga7aed006acb05a879710b31e4790ce806"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac7a5a8366d3950a0052d7fafcbb214b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gac7a5a8366d3950a0052d7fafcbb214b1">MXC_I2S_RXDMAConfig</a> (void *dest_addr, int len)</td></tr>
-<tr class="separator:gac7a5a8366d3950a0052d7fafcbb214b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga409b15e891097d3dc2bfad1386802d94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga409b15e891097d3dc2bfad1386802d94">MXC_I2S_Transaction</a> (<a class="el" href="group__i2s.html#structmxc__i2s__req__t">mxc_i2s_req_t</a> *i2s_req)</td></tr>
+<tr class="separator:ga409b15e891097d3dc2bfad1386802d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf24367e32ae160027d456e9f8cb0273a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gaf24367e32ae160027d456e9f8cb0273a">MXC_I2S_TransactionAsync</a> (<a class="el" href="group__i2s.html#structmxc__i2s__req__t">mxc_i2s_req_t</a> *i2s_req)</td></tr>
+<tr class="separator:gaf24367e32ae160027d456e9f8cb0273a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5ff23332a0f2a085dac268f1eda9975"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gaa5ff23332a0f2a085dac268f1eda9975">MXC_I2S_TXDMAConfig</a> (void *src_addr, int len)</td></tr>
+<tr class="separator:gaa5ff23332a0f2a085dac268f1eda9975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6e09bcab17bf0c63662262fb6fb2ee39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#ga6e09bcab17bf0c63662262fb6fb2ee39">MXC_I2S_RXDMAConfig</a> (void *dest_addr, int len)</td></tr>
+<tr class="separator:ga6e09bcab17bf0c63662262fb6fb2ee39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbe4f2f9af17aa35a36fdaaecca2c6f0"><td class="memItemLeft" align="right" valign="top"><a id="gabbe4f2f9af17aa35a36fdaaecca2c6f0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gabbe4f2f9af17aa35a36fdaaecca2c6f0">MXC_I2S_Handler</a> (void)</td></tr>
+<tr class="separator:gabbe4f2f9af17aa35a36fdaaecca2c6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf5037c6b75efb9ea52c959bc447d08a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gaaf5037c6b75efb9ea52c959bc447d08a">MXC_I2S_RegisterDMACallback</a> (void(*callback)(int, int))</td></tr>
 <tr class="separator:gaaf5037c6b75efb9ea52c959bc447d08a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaababbadaa4e98d2bcad00a2300ad52fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2s.html#gaababbadaa4e98d2bcad00a2300ad52fa">MXC_I2S_RegisterAsyncCallback</a> (void(*callback)(int))</td></tr>
+<tr class="separator:gaababbadaa4e98d2bcad00a2300ad52fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <hr/><h2 class="groupheader">Data Structure Documentation</h2>
@@ -178,6 +197,51 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gae255170aad3cd2827299aa4275587f9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae255170aad3cd2827299aa4275587f9d">&#9670;&nbsp;</a></span>MXC_I2S_CalculateClockDiv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_CalculateClockDiv </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>smpl_rate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a>&#160;</td>
+          <td class="paramname"><em>smpl_sz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>i2s_clk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the value of the clock divider that should be used in order to get the desired sampling frequency. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">smpl_rate</td><td>Desired sampling rate. </td></tr>
+    <tr><td class="paramname">smple_sz</td><td>The size of each I2S word. </td></tr>
+    <tr><td class="paramname">i2s_clk</td><td>Frequency of the oscillator attached to the I2S Clock pin.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, the clock divider value. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
+
+</div>
+</div>
 <a id="gabb681ef254bf67f6652da18748766c5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gabb681ef254bf67f6652da18748766c5d">&#9670;&nbsp;</a></span>MXC_I2S_ClearFlags()</h2>
 
@@ -283,6 +347,58 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
+<a id="ga611b5e51f365889b8568e26090e8465d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga611b5e51f365889b8568e26090e8465d">&#9670;&nbsp;</a></span>MXC_I2S_FillTXFIFO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_FillTXFIFO </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>txData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a>&#160;</td>
+          <td class="paramname"><em>wordSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>smpl_cnt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fill I2S FIFO with data to transmit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">txData</td><td>Pointer to base address of the data buffer </td></tr>
+    <tr><td class="paramname">wordSize</td><td>Size of the data samples </td></tr>
+    <tr><td class="paramname">len</td><td>Number of samples in the data buffer </td></tr>
+    <tr><td class="paramname">smpl_cnt</td><td>Number of samples already sent from the data buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful the number of samples successfuly written to the FIFO. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
+
+</div>
+</div>
 <a id="ga3b89677a1edb6d0da0ccbb2c4de23447"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga3b89677a1edb6d0da0ccbb2c4de23447">&#9670;&nbsp;</a></span>MXC_I2S_GetFlags()</h2>
 
@@ -301,6 +417,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 <p>Get the set interrupt flags. </p>
 <dl class="section return"><dt>Returns</dt><dd>int return the mask of the set interrupt flags </dd></dl>
+
+</div>
+</div>
+<a id="gabf447d855f9066814b276d435b8c01fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabf447d855f9066814b276d435b8c01fe">&#9670;&nbsp;</a></span>MXC_I2S_GetSampleRate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_GetSampleRate </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>i2s_clk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current sampling rate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i2s_clk</td><td>Frequency of the oscillator attached to the I2S Clock pin.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, sampling rate. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
 
 </div>
 </div>
@@ -331,6 +474,84 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
+<a id="ga0eebb2b9663aeb56f3522e2c6114ef77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0eebb2b9663aeb56f3522e2c6114ef77">&#9670;&nbsp;</a></span>MXC_I2S_ReadRXFIFO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_ReadRXFIFO </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>rxData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a>&#160;</td>
+          <td class="paramname"><em>wordSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>smpl_cnt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read audio samples from I2S receive buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rxData</td><td>Pointer to data buffer that will store the audio samples </td></tr>
+    <tr><td class="paramname">wordSize</td><td>Size of the samples in the FIFO </td></tr>
+    <tr><td class="paramname">len</td><td>Number of samples to read </td></tr>
+    <tr><td class="paramname">smpl_cnt</td><td>Number of samples already received in the data buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, the number of samples actually read from the buffer. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
+
+</div>
+</div>
+<a id="gaababbadaa4e98d2bcad00a2300ad52fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaababbadaa4e98d2bcad00a2300ad52fa">&#9670;&nbsp;</a></span>MXC_I2S_RegisterAsyncCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MXC_I2S_RegisterAsyncCallback </td>
+          <td>(</td>
+          <td class="paramtype">void(*)(int)&#160;</td>
+          <td class="paramname"><em>callback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the callback function for asynchronous I2S transactions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>Function pointer to the asynchronous transaction callback </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="gaaf5037c6b75efb9ea52c959bc447d08a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaaf5037c6b75efb9ea52c959bc447d08a">&#9670;&nbsp;</a></span>MXC_I2S_RegisterDMACallback()</h2>
 
@@ -357,14 +578,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
-<a id="gac7a5a8366d3950a0052d7fafcbb214b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac7a5a8366d3950a0052d7fafcbb214b1">&#9670;&nbsp;</a></span>MXC_I2S_RXDMAConfig()</h2>
+<a id="ga6e09bcab17bf0c63662262fb6fb2ee39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6e09bcab17bf0c63662262fb6fb2ee39">&#9670;&nbsp;</a></span>MXC_I2S_RXDMAConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MXC_I2S_RXDMAConfig </td>
+          <td class="memname">int MXC_I2S_RXDMAConfig </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>dest_addr</em>, </td>
@@ -387,10 +608,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dest_addr</td><td>destination address </td></tr>
-    <tr><td class="paramname">len</td><td>length of the data to be received </td></tr>
+    <tr><td class="paramname">len</td><td>length of the data to be received</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, the DMA channel number used for the request. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
 
 </div>
 </div>
@@ -459,6 +681,51 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
+<a id="gac6dbd01f7ae1cc8fb47dbf7a3e00157a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac6dbd01f7ae1cc8fb47dbf7a3e00157a">&#9670;&nbsp;</a></span>MXC_I2S_SetSampleRate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_SetSampleRate </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>smpl_rate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">mxc_i2s_wsize_t</a>&#160;</td>
+          <td class="paramname"><em>smpl_sz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>i2s_clk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the clock divider to provide the desired sampling rate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">smpl_rate</td><td>The desired sampling rate. </td></tr>
+    <tr><td class="paramname">smpl_sz</td><td>The size of each sample. </td></tr>
+    <tr><td class="paramname">i2s_clk</td><td>Frequency of the oscillator attached to the I2S Clock pin.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, the actual sampling rate. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
+
+</div>
+</div>
 <a id="gaf3ba4cd6ad295ad1d7eb02f2a282c595"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaf3ba4cd6ad295ad1d7eb02f2a282c595">&#9670;&nbsp;</a></span>MXC_I2S_Shutdown()</h2>
 
@@ -480,14 +747,68 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
-<a id="ga7aed006acb05a879710b31e4790ce806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7aed006acb05a879710b31e4790ce806">&#9670;&nbsp;</a></span>MXC_I2S_TXDMAConfig()</h2>
+<a id="ga409b15e891097d3dc2bfad1386802d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga409b15e891097d3dc2bfad1386802d94">&#9670;&nbsp;</a></span>MXC_I2S_Transaction()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MXC_I2S_TXDMAConfig </td>
+          <td class="memname">int MXC_I2S_Transaction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__i2s.html#structmxc__i2s__req__t">mxc_i2s_req_t</a> *&#160;</td>
+          <td class="paramname"><em>i2s_req</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs a blocking I2S transaction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pointer</td><td>to transaction request structure</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, E_NO_ERROR. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
+
+</div>
+</div>
+<a id="gaf24367e32ae160027d456e9f8cb0273a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf24367e32ae160027d456e9f8cb0273a">&#9670;&nbsp;</a></span>MXC_I2S_TransactionAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_TransactionAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__i2s.html#structmxc__i2s__req__t">mxc_i2s_req_t</a> *&#160;</td>
+          <td class="paramname"><em>i2s_req</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up an asynchronous I2S transaction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pointer</td><td>to transaction request structure</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, E_NO_ERROR. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
+
+</div>
+</div>
+<a id="gaa5ff23332a0f2a085dac268f1eda9975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa5ff23332a0f2a085dac268f1eda9975">&#9670;&nbsp;</a></span>MXC_I2S_TXDMAConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MXC_I2S_TXDMAConfig </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>src_addr</em>, </td>
@@ -510,10 +831,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src_addr</td><td>source address of data </td></tr>
-    <tr><td class="paramname">len</td><td>length od the data to be transmitted </td></tr>
+    <tr><td class="paramname">len</td><td>length od the data to be transmitted</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>If successful, the DMA channel number used for the request. Otherwise, an error code. See <a class="el" href="group___m_x_c___error___codes.html">Error Codes</a> for a list of return codes. </dd></dl>
 
 </div>
 </div>
@@ -522,7 +844,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Apr 7 2022 08:59:01 for MAX78000 Peripheral Driver API by
+    <li class="footer">Generated on Sun Aug 7 2022 20:17:28 for MAX78000 Peripheral Driver API by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

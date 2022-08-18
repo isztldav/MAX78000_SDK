@@ -1,5 +1,7 @@
 var NAVTREEINDEX11 =
 {
+"group___i2_s___register___offsets.html#ga0c99902fe4fa288977f8c94603472774":[0,9,0,0,5],
+"group___i2_s___register___offsets.html#ga334d74b0a7e657a34493472a63a5c678":[0,9,0,0,8],
 "group___i2_s___register___offsets.html#ga50fbb597f0bd2bde90b8383ff7270547":[0,9,0,0,7],
 "group___i2_s___register___offsets.html#ga523e3a5a7cf02e44dec295a42598c5e7":[0,9,0,0,1],
 "group___i2_s___register___offsets.html#ga5d845334da197eeb04848942cef95b6a":[0,9,0,0,4],
@@ -240,14 +242,12 @@ var NAVTREEINDEX11 =
 "group___o_w_m___c_l_k___d_i_v__1_u_s.html#ga5c200c787d4032af90b29d4879c1bf85":[0,16,0,2,0],
 "group___o_w_m___c_l_k___d_i_v__1_u_s.html#gae8149d4a7d17a40cbee2f70906179edd":[0,16,0,2,1],
 "group___o_w_m___c_t_r_l___s_t_a_t.html":[0,16,0,3],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga1b3c482aa91287faa1599a34f2f7535a":[0,16,0,3,2],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga3a2e772f4762eb4de3637ba5ccc11a2f":[0,16,0,3,11],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga4eaaac9dd2c205331a825a1a99f9e894":[0,16,0,3,10],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga54ac9f97cc71177721c64f88629d80b8":[0,16,0,3,6],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga56c76f97651247ce58ac58825681ff39":[0,16,0,3,4],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga5fd4b41d45f5a3d2ca44ab3eb2d85ad0":[0,16,0,3,13],
+"group___o_w_m___c_t_r_l___s_t_a_t.html#ga3a2e772f4762eb4de3637ba5ccc11a2f":[0,16,0,3,9],
+"group___o_w_m___c_t_r_l___s_t_a_t.html#ga4eaaac9dd2c205331a825a1a99f9e894":[0,16,0,3,8],
+"group___o_w_m___c_t_r_l___s_t_a_t.html#ga54ac9f97cc71177721c64f88629d80b8":[0,16,0,3,4],
+"group___o_w_m___c_t_r_l___s_t_a_t.html#ga56c76f97651247ce58ac58825681ff39":[0,16,0,3,2],
+"group___o_w_m___c_t_r_l___s_t_a_t.html#ga5fd4b41d45f5a3d2ca44ab3eb2d85ad0":[0,16,0,3,11],
 "group___o_w_m___c_t_r_l___s_t_a_t.html#ga6721079b1569ff556e5173abb70cba20":[0,16,0,3,1],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga6c087250d156601aeeceb9c5325f477e":[0,16,0,3,3],
-"group___o_w_m___c_t_r_l___s_t_a_t.html#ga6e189d6bb11a732fbfd527eecdf3d44d":[0,16,0,3,8],
+"group___o_w_m___c_t_r_l___s_t_a_t.html#ga6e189d6bb11a732fbfd527eecdf3d44d":[0,16,0,3,6],
 "group___o_w_m___c_t_r_l___s_t_a_t.html#ga7caeac35773fafa345b5930af3f9895e":[0,16,0,3,0]
 };

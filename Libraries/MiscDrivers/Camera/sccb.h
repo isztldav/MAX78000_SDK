@@ -34,8 +34,10 @@
 #define __SSCB_H__
 
 #include <stdint.h>
+#include "gpio.h"
 
 int sccb_init(void);
+int sccb_vssel(mxc_gpio_vssel_t vssel);
 int sccb_scan(void);
 int sccb_read_byt(uint8_t slv_addr, uint8_t reg,  uint8_t* byt);
 int sccb_write_byt(uint8_t slv_addr, uint8_t reg, uint8_t byt);

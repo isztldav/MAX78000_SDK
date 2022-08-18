@@ -311,7 +311,7 @@ static int std(MXC_USB_SetupPkt *sud)
       result = setinterface(sud);
       break;
     case SDR_SYNCH_FRAME:
-      /* Isochronous support not implemented */
+      /* Isochronous support is not implemented */
       result = -1;
       break;
     default:
@@ -397,9 +397,18 @@ static int clearfeature(MXC_USB_SetupPkt *sud)
     } else {
       return -1;
     }
+  } else if ((sud->wValue == FEAT_TEST_MODE)) {
+    /* Clear the test mode feature */
+    if (callback[ENUM_CLRFEATURE].fnaddr != NULL) {
+      result = callback[ENUM_CLRFEATURE].fnaddr(sud, NULL);
+      if (result < 0) {
+        return result;
+      }
   } else {
-    /* Per USB 2.0: The Test_Mode feature cannot be cleared by the ClearFeature() request. */
-    /* Unsupported */
+      return -1;
+    }
+  } else {
+    /* Unsupported */ 
     return -1;
   }
 
@@ -521,7 +530,8 @@ static int getdescriptor(MXC_USB_SetupPkt *sud)
         if (dsc == NULL) {
           dsclen = 0;
         } else {
-          dsclen = (dsc[3] << 8) + dsc[2];
+          //dsclen = (dsc[3] << 8) + dsc[2];
+		  dsclen = dsc[0];
         }
       }
       break;

@@ -1,14 +1,12 @@
-/*******************************************************************************
- * Copyright (C) 2020-2021 Maxim Integrated Products, Inc., All rights Reserved.
+/******************************************************************************
+ * Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
  *
- * This software is protected by copyright laws of the United States and
- * of foreign countries. This material may also be protected by patent laws
- * and technology transfer regulations of the United States and of foreign
- * countries. This software is furnished under a license agreement and/or a
- * nondisclosure agreement and may only be used or reproduced in accordance
- * with the terms of those agreements. Dissemination of this information to
- * any party or parties not specified in the license agreement and/or
- * nondisclosure agreement is expressly prohibited.
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -30,8 +28,8 @@
  * trademarks, maskwork rights, or any other form of intellectual
  * property whatsoever. Maxim Integrated Products, Inc. retains all
  * ownership rights.
- *******************************************************************************
- */
+ *
+ ******************************************************************************/
 #ifndef MAXCAM_DEBUG_H_
 #define MAXCAM_DEBUG_H_
 
@@ -41,10 +39,18 @@
 //#define IMAGE_TO_UART
 
 #ifndef IMAGE_TO_UART
-#define PR_DEBUG(fmt, args...)  if(1) printf("D[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args )  ///< TODO
-#define PR_INFO(fmt, args...)   if(0) printf("I[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args )  ///< TODO
-#define PR_WARN(fmt, args...)   if(1) printf("W[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args )  ///< TODO
-#define PR_ERR(fmt, args...)    if(1) printf("E[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args )  ///< TODO
+#define PR_DEBUG(fmt, args...) \
+    if (1)                     \
+    printf("D[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args) ///< TODO
+#define PR_INFO(fmt, args...) \
+    if (0)                    \
+    printf("I[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args) ///< TODO
+#define PR_WARN(fmt, args...) \
+    if (1)                    \
+    printf("W[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args) ///< TODO
+#define PR_ERR(fmt, args...) \
+    if (1)                   \
+    printf("E[%-10s:%4d] " fmt "\r\n", S_MODULE_NAME, __LINE__, ##args) ///< TODO
 #else
 #define PR_DEBUG(fmt, args...)
 #define PR_INFO(fmt, args...)

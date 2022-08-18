@@ -2,7 +2,7 @@
 
 This example demonstrates the use of the Analog Comparator to wake up the device from sleep mode. 
 
-The example is configured to use analog channels 0 and 1 as the negative and positive comparator inputs respectively. A wakeup event is triggered when the comparator output transitions from low to high (analog 1 needs to transition from a voltage lower than analog 0 to voltage higher than analog 0).
+The example is configured to use two analog channels as the negative and positive input to the low-power comparator. A wakeup event is triggered when the comparator output transitions from low to high (positive input needs to transition from a lower voltage than the negative input to a higher voltage than the negative input).
 
 ## Setup
 
@@ -26,19 +26,23 @@ If using the standard EV Kit (EvKit_V1):
 If using the Featherboard (FTHR_RevA):
 -   Connect a USB cable between the PC and the CN1 (USB/PWR) connector.
 -   Open a terminal application on the PC and connect to the EV kit's console UART at 115200, 8-N-1.
+-   Apply the negative comparator input to AIN6/AIN3N (RX Pin on header J8).
+-	Apply the positive comparator input to AIN7/AIN3P (TX Pin on header J8).
 
 ## Expected Output
 
 The Console UART of the device will output these messages:
 
 ```
-********** Comparator Example **********
+******************** Comparator Example ********************
 
-Connect the analog signal used as the positive comparator input 1 (AIN1/AIN0P).
-Connect the analog signal used as the negative comparator input 0 (AIN0/AIN0N).
+Connect the analog signal used as the positive comparator input
+to analog pin 1 (AIN1/AIN0P).
+Connect the analog signal used as the negative comparator input
+to analog pin 0 (AIN0/AIN0N).
 
-The device will be placed in sleep mode and requires a rising edge of the
-comparator output to wakeup.
+The device will be placed in sleep mode and requires a rising
+edge of the comparator output to wakeup.
 
 Press SW2 to begin.
 
@@ -47,7 +51,7 @@ Waking up.
 
 Entering sleep mode.
 Waking up.
-
-Entering sleep mode.
-...
+    .
+    .
+    .
 ```

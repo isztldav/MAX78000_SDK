@@ -86,16 +86,12 @@ typedef struct {
                                         /*   failure.                                               */ 
 } msc_mem_t;
 
-typedef struct {
-    void *cbFunc;
-    uint8_t interfaceNum;
-} msc_callback_req_t;
-
 /**
  *  \brief    Initialize the class driver
  *  \details  Initialize the class driver.
- *  \param    ids list of application specific stringstream
- *  \param    funcs set of functions used by the driver to control the underlying memory
+ *  \param    if_desc Pointer to the interface descriptor
+ *  \param    ids List of application specific string
+ *  \param    funcs Set of functions used by the driver to control the underlying memory
  *  \return   Zero (0) for success, non-zero for failure
  */
 int msc_init(const MXC_USB_interface_descriptor_t *if_desc, const msc_idstrings_t* ids, const msc_mem_t* funcs);
@@ -107,13 +103,13 @@ int msc_init(const MXC_USB_interface_descriptor_t *if_desc, const msc_idstrings_
  *  \param    cfg   configuration to be set
  *  \return   Zero (0) for success, non-zero for failure
  */
-int msc_configure(const msc_cfg_t *cfg, const uint8_t interface);
+int msc_configure(const msc_cfg_t *cfg);
 
 /**
  *  \brief    Clear the current configuration and resets endpoints
  *  \details  Clear the current configuration and resets endpoints.
  *  \return   Zero (0) for success, non-zero for failure
  */
-int msc_deconfigure(const uint8_t interface);
+int msc_deconfigure(void);
 
 #endif /* _MSC_H_ */

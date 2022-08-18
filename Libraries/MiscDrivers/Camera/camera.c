@@ -221,7 +221,10 @@ static void setup_dma(void)
             MXC_DMA->ch[g_dma_channel].cnt = g_stream_buffer_size * 2; // 10 and 12 bit use 2 bytes per word in the fifo
         }
 
-        current_stream_buffer = 0;
+        // Set the initial streaming buffer to 1
+        current_stream_buffer = 1;
+        MXC_DMA->ch[g_dma_channel].dst = (uint32_t)(rx_data + g_stream_buffer_size);
+
         stream_buffer_ptr = NULL;
         statistic.dma_transfer_count = 0;
 
@@ -296,7 +299,6 @@ int camera_init(uint32_t freq)
 
     if (ret == 0) {
         ret |= camera.reset();
-        ret |= camera.set_contrast(-2);
         ret |= camera.set_hmirror(1);
         ret |= camera.set_vflip(1);
     }
@@ -318,7 +320,7 @@ int camera_init(uint32_t freq)
 
         MXC_PCIF_EnableInt(MXC_F_CAMERAIF_INT_EN_IMG_DONE);
 #ifndef __riscv
-        NVIC_SetVector(PCIF_IRQn, camera_irq_handler);
+        MXC_NVIC_SetVector(PCIF_IRQn, camera_irq_handler);
 #else
         __enable_irq();
         NVIC_EnableIRQ(PCIF_IRQn);
@@ -333,6 +335,11 @@ int camera_reset(void)
     return camera.reset();
 }
 
+int camera_sleep(int enable)
+{
+    return camera.sleep(enable);
+}
+
 int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode, dmamode_t dma_mode, int dma_channel)
 {
     int ret = STATUS_OK;
@@ -342,12 +349,15 @@ int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode
     g_fifo_mode = fifo_mode;
 
     switch (g_fifo_mode) {
-    case FIFO_THREE_BYTE:
-        MXC_PCIF->ctrl |= MXC_F_CAMERAIF_CTRL_THREE_CH_EN;
+    case FIFO_THREE_BYTE: // data is 3 bytes in FIFO, it will be converted to 32-bit with MSB set to zero
+        MXC_PCIF->ctrl |= MXC_F_CAMERAIF_CTRL_THREE_CH_EN;  // CNN mode enabled
         break;
 
-    case FIFO_FOUR_BYTE:
-        MXC_PCIF->ctrl &= ~MXC_F_CAMERAIF_CTRL_THREE_CH_EN;
+    case FIFO_FOUR_BYTE: // data is 4 bytes in FIFO, no need to convert to 32-bit
+        MXC_PCIF->ctrl &= ~MXC_F_CAMERAIF_CTRL_THREE_CH_EN; // CNN mode disabled
+
+        if (pixformat == PIXFORMAT_RGB888)  // cannot be 4 bytes in FIFO in RGB888 case
+        	return -1;
         break;
 
     default:
@@ -399,10 +409,30 @@ int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode
         rx_data = (uint8_t*)malloc(2 * g_stream_buffer_size);
 
         // Register streaming callback function
-        MXC_DMA_SetCallback(g_dma_channel, stream_callback);
+        MXC_DMA_SetCallback(dma_channel, stream_callback);
 
 #ifndef __riscv
-        NVIC_SetVector(DMA0_IRQn, stream_irq_handler);
+        //MXC_NVIC_SetVector(DMA0_IRQn, stream_irq_handler);
+        switch(dma_channel)
+        {
+        	case 0:
+        		 MXC_NVIC_SetVector(DMA0_IRQn, stream_irq_handler);
+        		 break;
+        	case 1:
+        	     MXC_NVIC_SetVector(DMA1_IRQn, stream_irq_handler);
+        	     break;
+        	case 2:
+        	     MXC_NVIC_SetVector(DMA2_IRQn, stream_irq_handler);
+        	     break;
+        	case 3:
+        	     MXC_NVIC_SetVector(DMA3_IRQn, stream_irq_handler);
+        	     break;
+        	default:
+        		printf("DMA channel not supported!\n");
+        		while(1);
+
+        }
+
 #else
         NVIC_EnableIRQ(DMA0_IRQn);
 #endif
@@ -448,7 +478,7 @@ int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode
     return ret;
 }
 
-#if defined(CAMERA_HM01B0) || defined(CAMERA_HM0360) || defined(CAMERA_OV5642)
+#if defined(CAMERA_HM01B0) || defined(CAMERA_HM0360_MONO) || defined(CAMERA_HM0360_COLOR) || defined(CAMERA_OV5642)
 int camera_read_reg(uint16_t reg_addr, uint8_t* reg_data)
 {
     return camera.read_reg(reg_addr, reg_data);
@@ -500,6 +530,11 @@ int camera_set_vflip(int enable)
     return camera.set_vflip(enable);
 }
 
+int camera_set_colorbar(int enable)
+{
+    return camera.set_colorbar(enable);
+}
+
 int camera_start_capture_image(void)
 {
     int ret = STATUS_OK;
@@ -549,10 +584,10 @@ uint8_t* camera_get_pixel_format(void)
 
 void camera_get_image(uint8_t** img, uint32_t* imgLen, uint32_t* w, uint32_t* h)
 {
-    int n = 0, index;
+   // int n = 0, index;
     MXC_PCIF->int_fl |= MXC_PCIF->int_fl;
 
-    if (g_dma_mode == USE_DMA && g_pixel_format == PIXFORMAT_RGB888) {
+/*    if (g_dma_mode == USE_DMA && g_pixel_format == PIXFORMAT_RGB888) {
         // Filter image data
         index = 4;
 
@@ -566,7 +601,7 @@ void camera_get_image(uint8_t** img, uint32_t* imgLen, uint32_t* w, uint32_t* h)
             rx_data[n] = rx_data[index - 1];
         }
     }
-
+*/
     *img    = (uint8_t*)rx_data;
     *imgLen = g_total_img_size;
 
@@ -584,6 +619,11 @@ uint8_t* get_camera_stream_buffer(void)
     return stream_buffer_ptr;
 }
 
+int camera_get_stream_buffer_size(void)
+{
+    return g_stream_buffer_size;
+}
+
 void release_camera_stream_buffer(void)
 {
     stream_buffer_ptr = NULL;
@@ -593,3 +633,14 @@ stream_stat_t* get_camera_stream_statistic(void)
 {
     return &statistic;
 }
+
+int camera_set_contrast(int level)
+{
+    return camera.set_contrast(level);
+}
+
+int camera_set_brightness(int level)
+{
+    return camera.set_brightness(level);
+}
+

@@ -24,9 +24,9 @@ var NAVTREEINDEX =
 "group___d_v_s___s_t_a_t.html#ga129f44b21f7de5ae8b143044296bde16",
 "group___f_l_c___r_l_r4.html",
 "group___g_c_r___p_c_l_k_d_i_s1.html#ga4e3a79a5184ce147fbf9bb6eb1781d4b",
-"group___g_p_i_o___e_n2.html#ga58999c0118aecddf982168b772de8bad",
-"group___i2_c___i_n_t_e_n0.html#gab106bfc860547c8e306908bc58533dc1",
-"group___i2_s___register___offsets.html#ga50fbb597f0bd2bde90b8383ff7270547",
+"group___g_p_i_o___e_n1___s_e_t.html#gac09654b4817049e68773ee4543495fea",
+"group___i2_c___i_n_t_e_n0.html#gab05c2e377cacb32016e3943dc92a4d86",
+"group___i2_s___register___offsets.html#ga0c99902fe4fa288977f8c94603472774",
 "group___o_w_m___c_t_r_l___s_t_a_t.html#gaa119a70a79c535d765cc3fefbeaf2eb2",
 "group___p_w_r_s_e_q___l_p_p_w_e_n.html#gad26c7d4310c4fbd95f6801605547f09d",
 "group___s_d_h_c___e_r___i_n_t___e_n.html#ga78546957531f383604044bca9335861b",
@@ -36,14 +36,14 @@ var NAVTREEINDEX =
 "group___t_r_i_m_s_i_r___i_n_r_o.html#ga9e1afbd246986d1e2bbf2c35799ea92d",
 "group___u_s_b_h_s___f_i_f_o10.html#gad09fc4c3807734e65e34b3eff049aa4d",
 "group___u_s_b_h_s___o_u_t_c_o_u_n_t.html",
-"group___w_d_t___c_t_r_l.html#ga9d069939a7ae510e2416b9bd8a99bab1",
-"group__adc.html#ggade0c06eaf144744fa3a10a509971a82aa2c5a52f4fbdaaf47d8e6b805009818b2",
-"group__csi2.html#gga8f1c9fd92472f0c12e0c7d26e68d264ca3da617d9e4ad2151817b237b63e5e391",
-"group__fcr__registers.html#a1d8eedfed72ce233471a470a13687f26",
-"group__i2c.html#gab59f39c18ce6f0cb09703515734d6422",
-"group__pwrseq.html#gabb6c99f86c25abe408c3a4fe27d80f28",
-"group__spi.html#gaeda5570dcb3ea4e3f40df35070f6922d",
-"group__usbhs__registers.html#a9b520433b48d213bb4c87efcbf94af86"
+"group___w_d_t___c_t_r_l.html#ga70725026de6cc2adeea7d0f7c176bb5f",
+"group__adc.html#gga4ac852f4bda65a1cda7a4061d1d3fb03ae03b2cb60fcb7255ec6dcc4e53456807",
+"group__csi2.html#gga431e484ea7af9e465e247afcaf6f7f46aac52063d5beee05078a007ca6bae8739",
+"group__dma__registers.html#a5f3ab705a4a67b17dcc04560cef193f3",
+"group__i2c.html#ga037f5f639895fb5305d05f1f8a975ddb",
+"group__pulsetrain.html#ga152d63758cd7aa9a56a2ef66ca807465",
+"group__spi.html#a857cb5b3e163adad91aac814ffd744d5",
+"group__uart__registers.html#a3e6d001d1e0e8d1e47c89262c1acc0f2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

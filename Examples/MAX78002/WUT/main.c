@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (C) 2016 Maxim Integrated Products, Inc., All Rights Reserved.
+/******************************************************************************
+ * Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -29,9 +29,6 @@
  * property whatsoever. Maxim Integrated Products, Inc. retains all
  * ownership rights.
  *
- * $Date: 2018-09-05 16:46:11 -0500 (Wed, 05 Sep 2018) $
- * $Revision: 37695 $
- *
  ******************************************************************************/
 
 /**
@@ -48,7 +45,7 @@
 #include "mxc.h"
 
 /***** Definitions *****/
-#define SLEEP_MODE           // Select between SLEEP_MODE and DEEPSLEEP_MODE
+#define SLEEP_MODE // Select between SLEEP_MODE and DEEPSLEEP_MODE
 
 #define MILLISECONDS_WUT 5000
 
@@ -64,21 +61,22 @@ void buttonHandler(void* pb)
 void setTrigger(int waitForTrigger)
 {
     int tmp;
-    
+
     buttonPressed = 0;
-    
+
     if (waitForTrigger) {
-        while (!buttonPressed);
+        while (!buttonPressed)
+            ;
     }
-    
+
     // Debounce the button press.
     for (tmp = 0; tmp < 0x80000; tmp++) {
         __NOP();
     }
-    
+
     // Wait for serial transactions to complete.
-    while (MXC_UART_ReadyForSleep(MXC_UART_GET_UART(CONSOLE_UART)) != E_NO_ERROR);
-    
+    while (MXC_UART_ReadyForSleep(MXC_UART_GET_UART(CONSOLE_UART)) != E_NO_ERROR)
+        ;
 }
 
 void WUT_IRQHandler()
@@ -91,38 +89,38 @@ int main(void)
 {
     mxc_wut_cfg_t cfg;
     uint32_t ticks;
-    
+
     printf("/************** Wakeup timer example ********************/\n");
     printf("This example is to show how the Wakeup timer is used and configured.\n");
     printf("Press SW4 to sleep or wake up the device.\n\n");
-    
+
     PB_RegisterCallback(0, buttonHandler);
-    
+
     // Get ticks based off of milliseconds
     MXC_WUT_GetTicks(MILLISECONDS_WUT, MXC_WUT_UNIT_MILLISEC, &ticks);
-    
+
     // config structure for one shot timer to trigger in a number of ticks
-    cfg.mode = MXC_WUT_MODE_ONESHOT;
+    cfg.mode    = MXC_WUT_MODE_ONESHOT;
     cfg.cmp_cnt = ticks;
-    
+
     // Init WUT
     MXC_WUT_Init(MXC_WUT_PRES_1);
-    
+
     //Config WUT
     MXC_WUT_Config(&cfg);
     MXC_LP_EnableWUTAlarmWakeup();
-    
+
     while (1) {
         setTrigger(1);
-        
+
         NVIC_EnableIRQ(WUT_IRQn);
         MXC_WUT_Enable();
-        
+
 #ifdef SLEEP_MODE
         printf("Entering SLEEP mode.\n");
         MXC_LP_EnterSleepMode();
         printf("Waking up from SLEEP mode.\n");
-        
+
 #else
         printf("Entering LPM mode.\n");
         MXC_LP_EnterLowPowerMode();

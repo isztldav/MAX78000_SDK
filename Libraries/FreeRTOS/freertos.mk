@@ -39,7 +39,8 @@
 ################################################################################
 
 ifeq "$(RTOS_DIR)" ""
-$(error RTOS_DIR must be specified)
+# If RTOS_DIR is not specified, this Makefile will locate itself.
+RTOS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 endif
 
 ifeq "$(COMPILER)" ""

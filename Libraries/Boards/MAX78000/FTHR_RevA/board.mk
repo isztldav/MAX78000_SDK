@@ -32,7 +32,8 @@
  ###############################################################################
 
 ifeq "$(BOARD_DIR)" ""
-$(error BOARD_DIR must be set)
+# This Makefile will self-locate if BOARD_DIR is not specified.
+BOARD_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 endif
 
 # Source files for this test (add path to VPATH below)

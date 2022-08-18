@@ -32,7 +32,8 @@
  ###############################################################################
 
 ifeq "$(BOARD_DIR)" ""
-$(error BOARD_DIR must be set)
+# This Makefile will self-locate if BOARD_DIR is not specified.
+BOARD_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 endif
 
 # Source files for this test (add path to VPATH below)
@@ -46,15 +47,21 @@ SRCS += camera.c
 ifeq "$(CAMERA)" "HM01B0"
 SRCS += hm01b0.c
 PROJ_CFLAGS+=-DCAMERA_HM01B0
-else ifeq "$(CAMERA)" "HM0360"
-SRCS += hm0360.c
-PROJ_CFLAGS+=-DCAMERA_HM0360
+else ifeq "$(CAMERA)" "HM0360_MONO"
+SRCS += hm0360_mono.c
+PROJ_CFLAGS+=-DCAMERA_HM0360_MONO
+else ifeq "$(CAMERA)" "HM0360_COLOR"
+SRCS += hm0360_color.c
+PROJ_CFLAGS+=-DCAMERA_HM0360_COLOR
 else ifeq "$(CAMERA)" "OV5642"
 SRCS += ov5642.c
 PROJ_CFLAGS+=-DCAMERA_OV5642
 else ifeq "$(CAMERA)" "OV7692"
 SRCS += ov7692.c
 PROJ_CFLAGS+=-DCAMERA_OV7692
+else ifeq "$(CAMERA)" "PAG7920"
+SRCS += pag7920.c
+PROJ_CFLAGS+=-DCAMERA_PAG7920
 else ifeq "$(CAMERA)" ""
 SRCS += ov7692.c
 PROJ_CFLAGS+=-DCAMERA_OV7692
