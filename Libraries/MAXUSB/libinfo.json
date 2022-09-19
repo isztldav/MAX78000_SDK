@@ -17,6 +17,18 @@
     "whitelist":"True",
     "targets":[
         {
+            "name":"MAX78002",
+            "ipaths":[
+                "include/core/musbhsfc"
+            ]
+        },
+        {
+            "name":"MAX32690",
+            "ipaths":[
+                "include/core/musbhsfc"
+            ]
+        },
+        {
             "name":"MAX32650",
             "ipaths":[
                 "include/core/musbhsfc"

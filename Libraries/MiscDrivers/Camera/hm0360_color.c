@@ -804,7 +804,7 @@ static int sleep(int enable)
             reg = STANDBY_MODE;
         }
         else {
-            reg = SW_STEAMING_MODE;
+            reg = SW_STREAMING_MODE;
         }
 
         // Write back register

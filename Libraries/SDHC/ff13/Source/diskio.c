@@ -13,6 +13,7 @@
 
 /* Definitions of physical drive number for each drive */
 #define DEV_SD      0   /* Example: Map MMC/SD card to physical drive 1 */
+#define SPI_SPEED 10000000
 
 #ifdef NATIVE_SDHC
 
@@ -363,7 +364,7 @@ static void init_mmc()
     pins.sdio2 = false;
     pins.sdio3 = false;
     pins.vddioh = true;
-    MXC_SPI_Init(mmc_spi, 1, 0, 0, 0, 400000, pins);
+    MXC_SPI_Init(mmc_spi, 1, 0, 0, 0, SPI_SPEED, pins);
 	MXC_SPI_SetDataSize(mmc_spi, 8);
 	MXC_SPI_SetDefaultTXData(mmc_spi, 0xFF);
 

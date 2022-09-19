@@ -35,7 +35,7 @@
  ###############################################################################
 
 # This is the name of the build output file
-PROJECT=maxusb
+override PROJECT=maxusb
 
 ifeq "$(TARGET)" ""
 $(error TARGET must be specified)
@@ -87,6 +87,13 @@ endif
 ifeq "$(TARGET_UC)" "MAX32570"
 TARGET_USB=MUSBHSFC
 endif
+ifeq "$(TARGET_UC)" "MAX32690"
+TARGET_USB=MUSBHSFC
+endif
+ifeq "$(TARGET_UC)" "MAX78002"
+TARGET_USB=MUSBHSFC
+endif
+
 
 
 # Source files for this test (add path to VPATH below)

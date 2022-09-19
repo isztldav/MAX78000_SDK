@@ -4,6 +4,16 @@ Refer to [Getting Started with the MAX78000 Evaluation Kit](https://github.com/M
 
 ## Release Notes
 
+August 26, 2022
+* Improved documentation for the options available in the makefile system.
+* Addded USB examples for MAX78002
+* Fix missing TFT_ENABLE flag from some CNN demos
+* Fix memory allocation bug in CNN digit-detection-demo
+* Add SD card functionality to ImgCapture example
+* Update HM0360 mono drivers
+* Fix SW_STEAMING -> SW_STREAMING typo in HM0360 drivers
+* Re-work project.mk for projects specifically targeting the 0V7692 camera.
+
 August 7, 2022
 * Updated CMSIS library to version 5.9.0.
 * Improved MIPI-CSI2 API.

@@ -82,7 +82,7 @@
 
 #define MODE_SELECT             (0x0100)
 #define STANDBY_MODE            0x0
-#define SW_STEAMING_MODE        0x1
+#define SW_STREAMING_MODE        0x1
 #define SW_AUTO_WAKEUP_MODE     0x2
 #define SW_SNAPSHOT_NFRAME_MODE 0x3
 #define HW_STEAMING_MODE        0x4

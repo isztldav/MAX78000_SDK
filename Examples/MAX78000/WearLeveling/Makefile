@@ -1,5 +1,5 @@
 # /*******************************************************************************
-# * Copyright (C) 2021 Maxim Integrated Products, Inc., All Rights Reserved.
+# * Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
 # *
 # * Permission is hereby granted, free of charge, to any person obtaining a
 # * copy of this software and associated documentation files (the "Software"),
@@ -29,33 +29,29 @@
 # * property whatsoever. Maxim Integrated Products, Inc. retains all
 # * ownership rights.
 # *******************************************************************************
+# */
 
 # ** Readme! **
-# Don't edit this file!  Edit "project.mk" instead...
+# Don't edit this file! This is the core Makefile for a MaximSDK 
+# project. The available configuration options can be overridden 
+# in "project.mk", on the command-line, or with system environment 
+# variables.
 
-# This is the core Makefile for a MaximSDK project.  The configuration below
-# is made to be suitable for most use-cases, and you normally shouldn't ever
-# need to edit this file directly.  Instead, if you do need to modify the build system
-# for your project use the "project.mk" file to override and/or add to the
-# various "API"-like configuration variables that are available.
+# See https://github.com/Analog-Devices-MSDK/VSCode-Maxim/tree/develop#build-configuration 
+# for more detailed instructions on how to use this system.
 
-# You can also set most configuration variables on the command-line or in your
-# system's environment variables.  If you're using a supported IDE, it will
-# offer its own options for overriding the available configuration variables.
-
-# For more details on what configuration variables are available, see the sections 
-# of this Makefile below.  Each section contains a description and a list of 
-# options.
-
-# For a more comprehensive overview of Make itself, see https://www.gnu.org/software/make/manual/
+# The detailed instructions mentioned above are easier to read than 
+# this file, but the comments found in this file also outline the 
+# available configuration variables. This file is organized into 
+# sub-sections, some of which expose config variables.
 
 
 # *******************************************************************************
 # Set the target microcontroller and board to compile for.  
 
-# Every TARGET microcontroller has some Board Support Packages (BSPs) that are available
-# for it under the MaximSDK/Libraries/Boards/TARGET folder.  The BSP that gets
-# selected is MaximSDK/Libraries/Boards/TARGET/BOARD.
+# Every TARGET microcontroller has some Board Support Packages (BSPs) that are 
+# available for it under the MaximSDK/Libraries/Boards/TARGET folder.  The BSP 
+# that gets selected is MaximSDK/Libraries/Boards/TARGET/BOARD.
 
 # Configuration Variables:
 # - TARGET : Override the default target microcontroller.  Ex: TARGET=MAX78000
@@ -220,12 +216,12 @@ COMPILER := GCC
 endif
 
 # Set compiler optimization level
-ifeq "$(MAKECMDGOALS)" "release"
-# Optimization level for "release" builds
-MXC_OPTIMIZE_CFLAGS := -O2
+ifneq "$(DEBUG)" ""
+# Optimization level for debug builds
+MXC_OPTIMIZE_CFLAGS ?= -Og
 else
 # Optimization level for default builds
-MXC_OPTIMIZE_CFLAGS := -Og
+MXC_OPTIMIZE_CFLAGS ?= -O2
 endif
 
 # Set compiler flags
@@ -247,7 +243,13 @@ export MFLOAT_ABI
 # The result is that overriding LINKERFILE with the filename of one of Maxim's alternate linkerfiles
 # (ex: LINKERFILE=max78000_arm.ld) will work just the same as LINKERFILE=mycustom.ld 
 # even if mycustom.ld lives locally to this project.
-LINKERFILE ?= $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source/GCC/$(TARGET_LC).ld
+
+ifeq "$(RISCV_CORE)" ""
+# Default linkerfile is only specified for standard Arm-core projects.
+# Otherwise, gcc_riscv.mk sets the appropriate riscv linkerfile.
+LINKER = $(TARGET_LC).ld
+LINKERFILE ?= $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source/GCC/$(LINKER)
+endif
 
 # This path contains system-level intialization files for the target micro.  Add to the build.
 VPATH += $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source
@@ -259,7 +261,8 @@ VPATH += $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source
 # are available in the MaximSDK.  Set a configuration variable to 1 to include the
 # library in the build, or 0 to exclude.
 
-# Each library may also have its own library specific configuration variables.
+# Each library may also have its own library specific configuration variables.  See
+# Libraries/libs.mk for more details.
 
 # Configuration variables:
 # - LIB_BOARD : Include the Board-Support Package (BSP) library. (Enabled by default)
@@ -269,7 +272,7 @@ VPATH += $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source
 # - LIB_FCL : Include the Free Cryptographic Library (FCL)
 # - LIB_FREERTOS : Include the FreeRTOS and FreeRTOS-Plus-CLI libraries
 # - LIB_LC3 : Include the Low Complexity Communication Codec (LC3) library
-# - LIB_LTTLEFS : Include the "little file system" (littleFS) library
+# - LIB_LITTLEFS : Include the "little file system" (littleFS) library
 # - LIB_LWIP : Include the lwIP library
 # - LIB_MAXUSB : Include the MAXUSB library
 # - LIB_SDHC : Include the SDHC library
