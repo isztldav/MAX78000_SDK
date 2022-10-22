@@ -2,8 +2,6 @@ var group___o_w_m___c_t_r_l___s_t_a_t =
 [
     [ "MXC_F_OWM_CTRL_STAT_BIT_BANG_OE", "group___o_w_m___c_t_r_l___s_t_a_t.html#ga7caeac35773fafa345b5930af3f9895e", null ],
     [ "MXC_F_OWM_CTRL_STAT_BIT_BANG_OE_POS", "group___o_w_m___c_t_r_l___s_t_a_t.html#ga6721079b1569ff556e5173abb70cba20", null ],
-    [ "MXC_F_OWM_CTRL_STAT_EXT_PULLUP_POL", "group___o_w_m___c_t_r_l___s_t_a_t.html#ga1b3c482aa91287faa1599a34f2f7535a", null ],
-    [ "MXC_F_OWM_CTRL_STAT_EXT_PULLUP_POL_POS", "group___o_w_m___c_t_r_l___s_t_a_t.html#ga6c087250d156601aeeceb9c5325f477e", null ],
     [ "MXC_F_OWM_CTRL_STAT_OD_SPEC_MODE", "group___o_w_m___c_t_r_l___s_t_a_t.html#ga56c76f97651247ce58ac58825681ff39", null ],
     [ "MXC_F_OWM_CTRL_STAT_OD_SPEC_MODE_POS", "group___o_w_m___c_t_r_l___s_t_a_t.html#gabe65c782f5b84f611654ee1bb62c9a64", null ],
     [ "MXC_F_OWM_CTRL_STAT_OW_INPUT", "group___o_w_m___c_t_r_l___s_t_a_t.html#ga54ac9f97cc71177721c64f88629d80b8", null ],

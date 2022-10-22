@@ -43,18 +43,50 @@
 #define FRAME_COUNT_L  (0x0006)
 #define PIXEL_ORDER    (0x0007)
 
+#define H_SUB		   		(0x0380)
+#define V_SUB		   		(0x0381)
+#define BINNING_MODE   		(0x0382)
+#define H_SUB_CTXA	   		(0x3507)
+#define V_SUB_CTXA	   		(0x3508)
+#define BINNING_MODE_CTXA   (0x3509)
+#define H_SUB_CTXB	   		(0x3561)
+#define V_SUB_CTXB	   		(0x3562)
+#define BINNING_MODE_CTXB   (0x3563)
+
+#define WIN_MODE				(0x3030)
+#define WIN_MODE_CONTEXT_A		(0x350D)
+#define WIN_MODE_CONTEXT_B		(0x3567)
+
+
+#define	PMU_CFG_3	   (0x3024)
+
+#define MONO_MODE	   (0x0370)
+#define MONO_MODE_ISP  (0x0371)
+#define MONO_MODE_SEL  (0x0372)
+
 #define SW_RESET       (0x0103)
 #define COMMAND_UPDATE (0x0104)
 
-#define MONO_CTRL       (0x100A)
+
+#define MONO_MODE_ISP_CTXA (0x350B)
+#define MONO_MODE_ISP_CTXB (0x3565)
+
+#define FRAME_LENGTH_LINES_H	(0x355D)
+#define FRAME_LENGTH_LINES_L	(0x355E)
+#define LINE_LENGTH_PCK_H		(0x355F)
+#define LINE_LENGTH_PCK_L		(0x3560)
+
+
+
+#define MONO_CTRL       		(0x100A)
 
 #define MODE_SELECT             (0x0100)
 #define STANDBY_MODE            0x0
-#define SW_STREAMING_MODE       0x1
+#define SW_STREAMING_MODE        0x1
 #define SW_AUTO_WAKEUP_MODE     0x2
 #define SW_SNAPSHOT_NFRAME_MODE 0x3
-#define HW_STREAMING_MODE       0x4
-#define HW_SNAPSHOT_NFRAME_MODE 0x6
+#define HW_STEAMING_MODE        0x4
+#define HW_SNAPSHOT_NFRAME_MODE 0x6    
 #define HW_AUTO_WAKEUP_MODE     0x7
 
 #define IMAGE_ORIENTATION   (0x0101)

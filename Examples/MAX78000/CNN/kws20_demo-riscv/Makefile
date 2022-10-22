@@ -1,5 +1,5 @@
 ################################################################################
- # Copyright (C) Maxim Integrated Products, Inc., All Rights Reserved.
+ # Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
  #
  # Permission is hereby granted, free of charge, to any person obtaining a
  # copy of this software and associated documentation files (the "Software"),
@@ -60,7 +60,7 @@ riscv: buildrv/common_riscv.ld arm build/$(PROJECT).elf
 
 buildrv/$(PROJECT).elf: riscv arm build/$(PROJECT).elf buildrv/common_riscv.ld
 
-clean distclean:
+clean libclean distclean:
 	@$(MAKE) -f Makefile.ARM $@
 	@$(MAKE) -f Makefile.RISCV $@
 

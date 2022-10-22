@@ -140,7 +140,7 @@
       <topic label="MXC_ADC_Busy" href="group__adc.html#ga5140b227686c0bf4fe35437a5ca9db73"/>
       <topic label="MXC_ADC_ClearFlags" href="group__adc.html#ga09c4099862f88a1a27c2473c1d38f397"/>
       <topic label="MXC_ADC_Convert" href="group__adc.html#gaa14e620105c777b24288dc978549b082"/>
-      <topic label="MXC_ADC_ConvertAsync" href="group__adc.html#ga78cea0fbeed992159f3293d41c3c6ed9"/>
+      <topic label="MXC_ADC_ConvertAsync" href="group__adc.html#ga8893dea64fd4ad17a0b2b18dac2b0197"/>
       <topic label="MXC_ADC_DisableComparators" href="group__adc.html#ga58202f3b07ce0ad2ffacdbb1fbab640f"/>
       <topic label="MXC_ADC_DisableInt" href="group__adc.html#gaf70d7d33806dbd71f148a0f2f786e7fc"/>
       <topic label="MXC_ADC_DisableMonitor" href="group__adc.html#ga164db2e39e469a49b71696e9fe80660c"/>
@@ -933,6 +933,8 @@
       </topic>
       <topic label="MXC_FLASH_PAGE_ADDR" href="group__flc.html#gafd2d64053cfb7718540dabced58857f4"/>
       <topic label="MXC_FLASH_PAGE_MASK" href="group__flc.html#gad726ec4ae8a020fffe03fafaf0ff08a9"/>
+      <topic label="MXC_FLC_BlockPageRead" href="group__flc.html#ga9cc38aba2ddda2be803d7c8af0ff57be"/>
+      <topic label="MXC_FLC_BlockPageWrite" href="group__flc.html#gaf332bac0bd7b380e2b913f266a71211f"/>
       <topic label="MXC_FLC_Busy" href="group__flc.html#ga851aa87519fefc63fc277f911a55f33f"/>
       <topic label="MXC_FLC_ClearFlags" href="group__flc.html#gac1be050abb30820d378f242576a26cd9"/>
       <topic label="MXC_FLC_DisableInt" href="group__flc.html#gacd5723a6d7273850061b8e4cc7a94439"/>
@@ -1821,22 +1823,31 @@
       </topic>
       <topic label="mxc_i2s_wsize_t" href="group__i2s.html#ga69ac34ac897436c1b47ada8fb1dd0582">
       </topic>
+      <topic label="MXC_I2S_CalculateClockDiv" href="group__i2s.html#gae255170aad3cd2827299aa4275587f9d"/>
       <topic label="MXC_I2S_ClearFlags" href="group__i2s.html#gabb681ef254bf67f6652da18748766c5d"/>
       <topic label="MXC_I2S_ConfigData" href="group__i2s.html#ga5981df9127d06340164cf5f5c2bd68fd"/>
       <topic label="MXC_I2S_DisableInt" href="group__i2s.html#ga9b2857203f73170c4f07ce710bebff10"/>
       <topic label="MXC_I2S_EnableInt" href="group__i2s.html#ga0df8528fd2309fda3864a7ec6073b7ca"/>
+      <topic label="MXC_I2S_FillTXFIFO" href="group__i2s.html#ga611b5e51f365889b8568e26090e8465d"/>
       <topic label="MXC_I2S_Flush" href="group__i2s.html#gaaaf1ce09b163ac273e4a5b2e9759bdaa"/>
       <topic label="MXC_I2S_GetFlags" href="group__i2s.html#ga3b89677a1edb6d0da0ccbb2c4de23447"/>
+      <topic label="MXC_I2S_GetSampleRate" href="group__i2s.html#gabf447d855f9066814b276d435b8c01fe"/>
+      <topic label="MXC_I2S_Handler" href="group__i2s.html#gabbe4f2f9af17aa35a36fdaaecca2c6f0"/>
       <topic label="MXC_I2S_Init" href="group__i2s.html#ga908d2bb5ebd853ffd32504c963c41f7f"/>
+      <topic label="MXC_I2S_ReadRXFIFO" href="group__i2s.html#ga0eebb2b9663aeb56f3522e2c6114ef77"/>
+      <topic label="MXC_I2S_RegisterAsyncCallback" href="group__i2s.html#gaababbadaa4e98d2bcad00a2300ad52fa"/>
       <topic label="MXC_I2S_RegisterDMACallback" href="group__i2s.html#gaaf5037c6b75efb9ea52c959bc447d08a"/>
       <topic label="MXC_I2S_RXDisable" href="group__i2s.html#gaf2217c37d934dc84c9f226babe2aa9d4"/>
-      <topic label="MXC_I2S_RXDMAConfig" href="group__i2s.html#gac7a5a8366d3950a0052d7fafcbb214b1"/>
+      <topic label="MXC_I2S_RXDMAConfig" href="group__i2s.html#ga6e09bcab17bf0c63662262fb6fb2ee39"/>
       <topic label="MXC_I2S_RXEnable" href="group__i2s.html#ga72d81aa086580679b48ad432ee05d37d"/>
       <topic label="MXC_I2S_SetFrequency" href="group__i2s.html#gaa90e3cfbfbf7257248bc24278f24cf6a"/>
       <topic label="MXC_I2S_SetRXThreshold" href="group__i2s.html#gaea4aab510d6353f3afd6440d71af3174"/>
+      <topic label="MXC_I2S_SetSampleRate" href="group__i2s.html#gac6dbd01f7ae1cc8fb47dbf7a3e00157a"/>
       <topic label="MXC_I2S_Shutdown" href="group__i2s.html#gaf3ba4cd6ad295ad1d7eb02f2a282c595"/>
+      <topic label="MXC_I2S_Transaction" href="group__i2s.html#ga409b15e891097d3dc2bfad1386802d94"/>
+      <topic label="MXC_I2S_TransactionAsync" href="group__i2s.html#gaf24367e32ae160027d456e9f8cb0273a"/>
       <topic label="MXC_I2S_TXDisable" href="group__i2s.html#ga640b17fbe37a6a25ea3bac6b90a40c54"/>
-      <topic label="MXC_I2S_TXDMAConfig" href="group__i2s.html#ga7aed006acb05a879710b31e4790ce806"/>
+      <topic label="MXC_I2S_TXDMAConfig" href="group__i2s.html#gaa5ff23332a0f2a085dac268f1eda9975"/>
       <topic label="MXC_I2S_TXEnable" href="group__i2s.html#gaa5d86a8f40d40994193f966e0e668f12"/>
     </topic>
     <topic label="ICC" href="group__icc.html">
@@ -2515,7 +2526,7 @@
       <topic label="MXC_RTC_GetSecond" href="group__rtc.html#ga3e2aa5c188abff60e6ead9726ef272cf"/>
       <topic label="MXC_RTC_GetSubSecond" href="group__rtc.html#gaa0c3ee434b206af0469de43ba32133f1"/>
       <topic label="MXC_RTC_GetTime" href="group__rtc.html#gaba6f82b7e4b7aa86906af65074412673"/>
-      <topic label="MXC_RTC_Init" href="group__rtc.html#ga12ddfdd7e1a02c94d4803f00ca7cae35"/>
+      <topic label="MXC_RTC_Init" href="group__rtc.html#gaf787cc7c9cca906f8a1a08575b367441"/>
       <topic label="MXC_RTC_SetSubsecondAlarm" href="group__rtc.html#gacb314ed0950eaeacdad1f599aa2e5d94"/>
       <topic label="MXC_RTC_SetTimeofdayAlarm" href="group__rtc.html#gaed7764f5a83cfb63f5ccaacb32a3a4ad"/>
       <topic label="MXC_RTC_SquareWaveStart" href="group__rtc.html#ga896e4f2d9b2e92dbe58022e3e78a741f"/>
@@ -2523,6 +2534,7 @@
       <topic label="MXC_RTC_Start" href="group__rtc.html#gac5e6c308be3e4ecdf17baeb10c5a5bed"/>
       <topic label="MXC_RTC_Stop" href="group__rtc.html#ga089f49e102942ac2e61590bd33b75abd"/>
       <topic label="MXC_RTC_Trim" href="group__rtc.html#ga6db76b4d1659b9286b9faa8c72312b3e"/>
+      <topic label="MXC_RTC_TrimCrystal" href="group__rtc.html#ga99cf3651cf36c2b2a8d6ea27d68f2bd7"/>
     </topic>
     <topic label="Semaphore (SEMA)" href="group__sema.html">
       <topic label="SEMA_Registers" href="group__sema__registers.html">

@@ -15,6 +15,7 @@ CNN/kws20_v3_1
 CNN/mnist
 CNN/mnist-riscv
 CRC
+CSI2
 DMA
 ECC
 Flash
@@ -22,6 +23,7 @@ FreeRTOSDemo
 GPIO
 Hello_World
 I2C
+I2C_SCAN
 I2S
 I2S_DMA
 ICC

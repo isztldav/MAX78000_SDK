@@ -65,13 +65,19 @@ typedef enum {
     SCREEN_ROTATE,
 } tft_rotation_t;
 
+typedef struct {
+    mxc_spi_regs_t *regs;   // The SPI instance the touchscreen controller is connected to
+    mxc_gpio_cfg_t  gpio;   // The SPI pins: MOSI, MISO, SCK, SS, must define all them
+    unsigned int    freq;   // The SPI frequency
+    int             ss_idx; // The SSEL index to use when communicating with the touchscreen controller
+} mxc_tft_spi_config;
+
 /************************************************************************************/
 
 /**
- * @brief      Initialize the touchscreen and display
+ * @brief      Used to register hw related configuration, need to be called before MXC_TFT_Init()
  *
- * @param      tft_spi          The SPI instance the TFT is connected to
- * @param      ss_idx           The SSEL index to use when communicating with the attached TFT
+ * @param      spi_config       TFT SPI configuration, SPI instance, freq, pins slave slect id
  * @param      reset_ctrl       The GPIO pin configuration for the TFT's reset pin.  Use NULL if
  *                              the reset pin of the TFT is not connected to the microcontroller.
  * @param      bl_ctrl          The GPIO pin configuration for the backlight enable pin.  Use NULL if
@@ -79,7 +85,14 @@ typedef enum {
  *
  * @return     See \ref MXC_Error_Codes for a list of return codes.
  */
-int MXC_TFT_Init(mxc_spi_regs_t* tft_spi, int ss_idx, mxc_gpio_cfg_t* reset_ctrl, mxc_gpio_cfg_t* bl_ctrl);
+int MXC_TFT_PreInit(mxc_tft_spi_config* spi_config, mxc_gpio_cfg_t* reset_ctrl, mxc_gpio_cfg_t* bl_ctrl);
+
+/**
+ * @brief      Initialize the TFT display
+ *
+ * @return     See \ref MXC_Error_Codes for a list of return codes.
+ */
+int MXC_TFT_Init(void);
 
 /**
  * @brief      Turns backlight on or off

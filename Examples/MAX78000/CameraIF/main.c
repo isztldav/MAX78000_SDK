@@ -1,39 +1,39 @@
-/*******************************************************************************
-* Copyright (C) Maxim Integrated Products, Inc., All Rights Reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a
-* copy of this software and associated documentation files (the "Software"),
-* to deal in the Software without restriction, including without limitation
-* the rights to use, copy, modify, merge, publish, distribute, sublicense,
-* and/or sell copies of the Software, and to permit persons to whom the
-* Software is furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included
-* in all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-* IN NO EVENT SHALL MAXIM INTEGRATED BE LIABLE FOR ANY CLAIM, DAMAGES
-* OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-* OTHER DEALINGS IN THE SOFTWARE.
-*
-* Except as contained in this notice, the name of Maxim Integrated
-* Products, Inc. shall not be used except as stated in the Maxim Integrated
-* Products, Inc. Branding Policy.
-*
-* The mere transfer of this software does not imply any licenses
-* of trade secrets, proprietary technology, copyrights, patents,
-* trademarks, maskwork rights, or any other form of intellectual
-* property whatsoever. Maxim Integrated Products, Inc. retains all
-* ownership rights.
-*
-******************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL MAXIM INTEGRATED BE LIABLE FOR ANY CLAIM, DAMAGES
+ * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Except as contained in this notice, the name of Maxim Integrated
+ * Products, Inc. shall not be used except as stated in the Maxim Integrated
+ * Products, Inc. Branding Policy.
+ *
+ * The mere transfer of this software does not imply any licenses
+ * of trade secrets, proprietary technology, copyrights, patents,
+ * trademarks, maskwork rights, or any other form of intellectual
+ * property whatsoever. Maxim Integrated Products, Inc. retains all
+ * ownership rights.
+ *
+ ******************************************************************************/
 
 /**
  * @file    main.c
- * @brief   Parallel camera example with the OV7692/OV5642/HM01B0/HM0360 camera sensors as defined in the makefile.
+ * @brief   Parallel camera example with the OV7692/OV5642/HM01B0/HM0360/PAG7920 camera sensors as defined in the makefile.
  *
  * @details This example uses the UART to stream out the image captured from the camera.
  *          Alternatively, it can display the captured image on TFT is it is enabled in the make file.
@@ -61,52 +61,105 @@
 #include "utils.h"
 #include "dma.h"
 
-#ifdef ENABLE_TFT  // defined in make file
-    #ifdef EvKit_V1
-#include "tft.h"
-    #endif
+// Configuration options
+// ------------------------
+#define ENABLE_TFT // Comment out to disable TFT and send image to serial port instead.
+#define STREAM_ENABLE
+/* If enabled, camera is setup in streaming mode to send the image
+line by line to TFT, or serial port as they are captured. Otherwise, it buffers the entire
+image first and then sends to TFT or serial port.
+With serial port set at 900kbps, it can stream for up to 80x80 with OV5642 camera in 
+stream mode, or 176x144 when stream mode is disabled.  It can display on TFT up to 176x144 
+if stream mode is disabled, or 320x240 if enabled
+*/
+// #define BUTTON
+/*
+If BUTTON is defined, you'll need to push PB1 to capture an image frame.  Otherwise, images
+will be captured continuously.
+*/
 
-    #ifdef FTHR_RevA
-#include "tft_fthr.h"
-    #endif
+// ------------------------
+
+/*
+Compiler definitions...  These configure TFT and camera settings based on the options above
+*/
+#ifdef ENABLE_TFT
+
+#ifdef BOARD_EVKIT_V1
+#include "tft_ssd2119.h"
+#endif
+
+#ifdef BOARD_FTHR_REVA
+#include "tft_ili9341.h"
+#endif
+
 #endif
 
 #define CAMERA_FREQ (10 * 1000 * 1000)
 
+// Match image dimensions to the selected camera and capture mode.
+// These definitions, including "CAMERA_MONO", come from board.mk
+
 #if defined(CAMERA_HM01B0)
-#define IMAGE_XRES  324/2
-#define IMAGE_YRES  244/2
-#define CAMERA_MONO
-//#define STREAM_ENABLE
+
+#ifdef STREAM_ENABLE
+#define IMAGE_XRES 324 / 2
+#define IMAGE_YRES 244 / 2
+
+#else
+#define IMAGE_XRES 80
+#define IMAGE_YRES 80
+
+#endif
 #endif
 
-#if defined(CAMERA_HM0360)
-#define IMAGE_XRES  320
-#define IMAGE_YRES  240
-#define CAMERA_MONO
-//#define STREAM_ENABLE
+#if defined(CAMERA_HM0360_MONO) || defined(CAMERA_HM0360_COLOR) || defined(CAMERA_PAG7920)
+
+#ifdef STREAM_ENABLE
+#define IMAGE_XRES 320
+#define IMAGE_YRES 240
+
+#else
+#define IMAGE_XRES 320
+#define IMAGE_YRES 240
+
+#endif
 #endif
 
 #if defined(CAMERA_OV7692) || defined(CAMERA_OV5642)
-#define IMAGE_XRES  320
-#define IMAGE_YRES  240
-#define STREAM_ENABLE  // If enabled, camera is setup in streaming mode to send the image line by line
-// to TFT, or serial port as they are captured. Otherwise, it buffers the entire image first and
-// then sends to TFT or serial port.
-// With serial port set at 900kbps, it can stream for up to 80x80 with OV5642 camera in stream mode.
-// or 176x144 when stream mode is disabled.
-// It can display on TFT up to 176x144 if stream mode is disabled, or 320x240 if enabled.
+
+#ifdef ENABLE_TFT
+#ifdef STREAM_ENABLE
+#define IMAGE_XRES 320
+#define IMAGE_YRES 240
+
+#else
+#define IMAGE_XRES 176
+#define IMAGE_YRES 144
 #endif
 
-#define CON_BAUD 115200*8   //UART baudrate used for sending data to PC, use max 921600 for serial stream
-#define X_START     0
-#define Y_START     0
+#else
+#ifdef STREAM_ENABLE
+#define IMAGE_XRES 80
+#define IMAGE_YRES 80
+#else
+#define IMAGE_XRES 176
+#define IMAGE_YRES 144
+#endif
+
+#endif
+#endif
+
+#define CON_BAUD \
+    115200 * 8 //UART baudrate used for sending data to PC, use max 921600 for serial stream
+#define X_START 0
+#define Y_START 0
 
 void process_img(void)
 {
-    uint8_t*   raw;
-    uint32_t  imgLen;
-    uint32_t  w, h;
+    uint8_t* raw;
+    uint32_t imgLen;
+    uint32_t w, h;
 
     // Get the details of the image from the camera driver.
     camera_get_image(&raw, &imgLen, &w, &h);
@@ -138,7 +191,6 @@ void process_img(void)
 
     // Get image line by line
     for (int i = 0; i < h; i++) {
-
         // Wait until camera streaming buffer is full
         while ((data = get_camera_stream_buffer()) == NULL) {
             if (camera_is_image_rcv()) {
@@ -169,9 +221,10 @@ void process_img(void)
     //printf("DMA transfer count = %d\n", stat->dma_transfer_count);
     //printf("OVERFLOW = %d\n", stat->overflow_count);
     if (stat->overflow_count > 0) {
-        LED_On(LED2); // Turn on red LED if overflow detected
+        LED_On(LED_RED); // Turn on red LED if overflow detected
 
-        while (1);
+        while (1)
+            ;
     }
 
 #endif //#ifndef STREAM_ENABLE
@@ -219,7 +272,8 @@ int main(void)
 
     printf("Camera ID detected: %04x\n", id);
 
-#if defined(CAMERA_HM01B0) || defined(CAMERA_HM0360) || defined(CAMERA_OV5642)
+#if defined(CAMERA_HM01B0) || defined(CAMERA_HM0360_MONO) || defined(CAMERA_HM0360_COLOR) || \
+    defined(CAMERA_OV5642)
     camera_set_hmirror(0);
     camera_set_vflip(0);
 #endif
@@ -227,15 +281,23 @@ int main(void)
 #ifdef ENABLE_TFT
     printf("Init TFT\n");
     /* Initialize TFT display */
+#ifdef BOARD_EVKIT_V1
+    MXC_TFT_Init();
+#endif
+
+#ifdef BOARD_FTHR_REVA
     MXC_TFT_Init(MXC_SPI0, 1, NULL, NULL);
+#endif
     MXC_TFT_SetBackGroundColor(4);
 #endif
     // Setup the camera image dimensions, pixel format and data acquiring details.
 #ifndef STREAM_ENABLE
 #ifndef CAMERA_MONO
-    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_RGB565, FIFO_FOUR_BYTE, USE_DMA, dma_channel); // RGB565
+    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_RGB565, FIFO_FOUR_BYTE, USE_DMA,
+                       dma_channel); // RGB565
 #else
-    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_BAYER, FIFO_FOUR_BYTE, USE_DMA, dma_channel); // Mono
+    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_BAYER, FIFO_FOUR_BYTE, USE_DMA,
+                       dma_channel); // Mono
 #endif
 
 #ifdef ENABLE_TFT
@@ -246,18 +308,20 @@ int main(void)
 #endif
 #else
 #ifndef CAMERA_MONO
-    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_RGB565, FIFO_FOUR_BYTE, STREAMING_DMA, dma_channel); // RGB565 stream
+    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_RGB565, FIFO_FOUR_BYTE, STREAMING_DMA,
+                       dma_channel); // RGB565 stream
 #else
-    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_BAYER, FIFO_FOUR_BYTE, STREAMING_DMA, dma_channel); // Mono stream
+    ret = camera_setup(IMAGE_XRES, IMAGE_YRES, PIXFORMAT_BAYER, FIFO_FOUR_BYTE, STREAMING_DMA,
+                       dma_channel); // Mono stream
 #endif
 
 #ifdef ENABLE_TFT
     /* Set the screen rotation */
-#ifdef EvKit_V1
-    MXC_TFT_SetRotation(SCREEN_FLIP);
+#ifdef BOARD_EVKIT_V1
+    MXC_TFT_SetRotation(SCREEN_NORMAL);
 #endif
-#ifdef FTHR_RevA
-    MXC_TFT_SetRotation(ROTATE_180);
+#ifdef BOARD_FTHR_REVA
+    MXC_TFT_SetRotation(ROTATE_270);
 #endif
 
 #endif
@@ -271,11 +335,21 @@ int main(void)
     MXC_Delay(SEC(1));
 
 #if defined(CAMERA_OV7692) && defined(STREAM_ENABLE)
-    camera_write_reg(0x11, 0x6); // set camera clock prescaller to prevent streaming overflow for QVGA
+    // set camera clock prescaller to prevent streaming overflow for QVGA
+#ifdef BOARD_EVKIT_V1
+    camera_write_reg(0x11, 0x8); // can be set to 0x6 in release mode ( -o2 )
+#endif
+#ifdef BOARD_FTHR_REVA
+    camera_write_reg(0x11, 0xE); // can be set to 0xB in release mode ( -o2 )
+#endif
 #endif
 
     // Start capturing a first camera image frame.
     printf("Starting\n");
+#ifdef BUTTON
+    while (!PB_Get(0))
+        ;
+#endif
     camera_start_capture_image();
 
     while (1) {
@@ -288,7 +362,11 @@ int main(void)
             process_img();
 
             // Prepare for another frame capture.
-            LED_Toggle(LED1);
+            LED_Toggle(LED_GREEN);
+#ifdef BUTTON
+            while (!PB_Get(0))
+                ;
+#endif
             camera_start_capture_image();
         }
     }

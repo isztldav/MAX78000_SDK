@@ -186,6 +186,33 @@ int sccb_init(void)
     return ret;
 }
 
+int sccb_vssel(mxc_gpio_vssel_t vssel)
+{
+    int sda_state;
+    int scl_state;
+    int ret = 0;
+
+    // Preserve current state then set lines LOW before updating VSSEL.
+    sda_state = MXC_GPIO_OutGet(SDA_PORT, SDA_PIN);
+    scl_state = MXC_GPIO_OutGet(SCL_PORT, SCL_PIN);
+
+    SDA_LOW();
+    SCL_LOW();
+
+    ret |= MXC_GPIO_SetVSSEL(SDA_PORT, vssel, SDA_PIN);
+    ret |= MXC_GPIO_SetVSSEL(SCL_PORT, vssel, SCL_PIN);
+
+    if(sda_state) {
+        SDA_HIGH();
+    }
+
+    if(scl_state) {
+        SCL_HIGH();
+    }
+
+    return ret;
+}
+
 int sccb_scan(void)
 {
     int ret = 0;

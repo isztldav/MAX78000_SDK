@@ -35,10 +35,10 @@
 PROJECT_NAME=libfcl
 
 # Specify the project variant.
-ifeq "$(MFLOAT_FLAGS)" "hardfp"
+ifeq "$(MFLOAT_ABI)" "hardfp"
 PROJECT_VARIANT=hardfp
 else
-ifeq "$(MFLOAT_FLAGS)" "hard"
+ifeq "$(MFLOAT_ABI)" "hard"
 PROJECT_VARIANT=hardfp
 else
 PROJECT_VARIANT=softfp

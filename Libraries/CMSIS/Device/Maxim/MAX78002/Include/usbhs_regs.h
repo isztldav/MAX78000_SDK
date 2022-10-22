@@ -3,39 +3,38 @@
  * @brief   Registers, Bit Masks and Bit Positions for the USBHS Peripheral Module.
  */
 
-/* ****************************************************************************
- * Copyright (C) Maxim Integrated Products, Inc., All Rights Reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL MAXIM INTEGRATED BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- *
- * Except as contained in this notice, the name of Maxim Integrated
- * Products, Inc. shall not be used except as stated in the Maxim Integrated
- * Products, Inc. Branding Policy.
- *
- * The mere transfer of this software does not imply any licenses
- * of trade secrets, proprietary technology, copyrights, patents,
- * trademarks, maskwork rights, or any other form of intellectual
- * property whatsoever. Maxim Integrated Products, Inc. retains all
- * ownership rights.
- *
- *
- *************************************************************************** */
+/******************************************************************************
+* Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a
+* copy of this software and associated documentation files (the "Software"),
+* to deal in the Software without restriction, including without limitation
+* the rights to use, copy, modify, merge, publish, distribute, sublicense,
+* and/or sell copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included
+* in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+* IN NO EVENT SHALL MAXIM INTEGRATED BE LIABLE FOR ANY CLAIM, DAMAGES
+* OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*
+* Except as contained in this notice, the name of Maxim Integrated
+* Products, Inc. shall not be used except as stated in the Maxim Integrated
+* Products, Inc. Branding Policy.
+*
+* The mere transfer of this software does not imply any licenses
+* of trade secrets, proprietary technology, copyrights, patents,
+* trademarks, maskwork rights, or any other form of intellectual
+* property whatsoever. Maxim Integrated Products, Inc. retains all
+* ownership rights.
+*
+******************************************************************************/
 
 #ifndef _USBHS_REGS_H_
 #define _USBHS_REGS_H_
@@ -46,11 +45,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
- 
+
 #if defined (__ICCARM__)
   #pragma system_include
 #endif
- 
+
 #if defined (__CC_ARM)
   #pragma anon_unions
 #endif
@@ -98,18 +97,18 @@ typedef struct {
     __IO uint8_t  index;                /**< <tt>\b 0x0E:</tt> USBHS INDEX Register */
     __IO uint8_t  testmode;             /**< <tt>\b 0x0F:</tt> USBHS TESTMODE Register */
     __IO uint16_t inmaxp;               /**< <tt>\b 0x10:</tt> USBHS INMAXP Register */
-  union{
-    __IO uint8_t  csr0;                 /**< <tt>\b 0x12:</tt> USBHS CSR0 Register */
-    __IO uint8_t  incsrl;               /**< <tt>\b 0x12:</tt> USBHS INCSRL Register */
-  };
+    union {
+        __IO uint8_t  csr0;             /**< <tt>\b 0x12:</tt> USBHS CSR0 Register */
+        __IO uint8_t  incsrl;           /**< <tt>\b 0x12:</tt> USBHS INCSRL Register */
+    };
     __IO uint8_t  incsru;               /**< <tt>\b 0x13:</tt> USBHS INCSRU Register */
     __IO uint16_t outmaxp;              /**< <tt>\b 0x14:</tt> USBHS OUTMAXP Register */
     __IO uint8_t  outcsrl;              /**< <tt>\b 0x16:</tt> USBHS OUTCSRL Register */
     __IO uint8_t  outcsru;              /**< <tt>\b 0x17:</tt> USBHS OUTCSRU Register */
-  union{
-    __IO uint16_t count0;               /**< <tt>\b 0x18:</tt> USBHS COUNT0 Register */
-    __IO uint16_t outcount;             /**< <tt>\b 0x18:</tt> USBHS OUTCOUNT Register */
-  };
+    union {
+        __IO uint16_t count0;           /**< <tt>\b 0x18:</tt> USBHS COUNT0 Register */
+        __IO uint16_t outcount;         /**< <tt>\b 0x18:</tt> USBHS OUTCOUNT Register */
+    };
     __R  uint16_t rsv_0x1a_0x1f[3];
     __IO uint32_t fifo0;                /**< <tt>\b 0x20:</tt> USBHS FIFO0 Register */
     __IO uint32_t fifo1;                /**< <tt>\b 0x24:</tt> USBHS FIFO1 Register */
@@ -137,20 +136,45 @@ typedef struct {
     __R  uint32_t rsv_0x7c;
     __IO uint16_t ctuch;                /**< <tt>\b 0x80:</tt> USBHS CTUCH Register */
     __IO uint16_t cthsrtn;              /**< <tt>\b 0x82:</tt> USBHS CTHSRTN Register */
-    __R  uint32_t rsv_0x84_0x40f[227];
+    __R  uint32_t rsv_0x84_0x3ff[223];
+    __IO uint32_t mxm_usb_reg_00;       /**< <tt>\b 0x400:</tt> USBHS MXM_USB_REG_00 Register */
+    __IO uint32_t m31_phy_utmi_reset;   /**< <tt>\b 0x404:</tt> USBHS M31_PHY_UTMI_RESET Register */
+    __IO uint32_t m31_phy_utmi_vcontrol; /**< <tt>\b 0x408:</tt> USBHS M31_PHY_UTMI_VCONTROL Register */
+    __IO uint32_t m31_phy_clk_en;       /**< <tt>\b 0x40C:</tt> USBHS M31_PHY_CLK_EN Register */
     __IO uint32_t m31_phy_ponrst;       /**< <tt>\b 0x410:</tt> USBHS M31_PHY_PONRST Register */
     __IO uint32_t m31_phy_noncry_rstb;  /**< <tt>\b 0x414:</tt> USBHS M31_PHY_NONCRY_RSTB Register */
     __IO uint32_t m31_phy_noncry_en;    /**< <tt>\b 0x418:</tt> USBHS M31_PHY_NONCRY_EN Register */
-    __R  uint32_t rsv_0x41c_0x42f[5];
+    __R  uint32_t rsv_0x41c;
+    __IO uint32_t m31_phy_u2_compliance_en; /**< <tt>\b 0x420:</tt> USBHS M31_PHY_U2_COMPLIANCE_EN Register */
+    __IO uint32_t m31_phy_u2_compliance_dac_adj; /**< <tt>\b 0x424:</tt> USBHS M31_PHY_U2_COMPLIANCE_DAC_ADJ Register */
+    __IO uint32_t m31_phy_u2_compliance_dac_adj_en; /**< <tt>\b 0x428:</tt> USBHS M31_PHY_U2_COMPLIANCE_DAC_ADJ_EN Register */
+    __IO uint32_t m31_phy_clk_rdy;      /**< <tt>\b 0x42C:</tt> USBHS M31_PHY_CLK_RDY Register */
     __IO uint32_t m31_phy_pll_en;       /**< <tt>\b 0x430:</tt> USBHS M31_PHY_PLL_EN Register */
-    __R  uint32_t rsv_0x434_0x43b[2];
+    __IO uint32_t m31_phy_bist_ok;      /**< <tt>\b 0x434:</tt> USBHS M31_PHY_BIST_OK Register */
+    __IO uint32_t m31_phy_data_oe;      /**< <tt>\b 0x438:</tt> USBHS M31_PHY_DATA_OE Register */
     __IO uint32_t m31_phy_oscouten;     /**< <tt>\b 0x43C:</tt> USBHS M31_PHY_OSCOUTEN Register */
-    __R  uint32_t rsv_0x440_0x447[2];
+    __IO uint32_t m31_phy_lpm_alive;    /**< <tt>\b 0x440:</tt> USBHS M31_PHY_LPM_ALIVE Register */
+    __IO uint32_t m31_phy_hs_bist_mode; /**< <tt>\b 0x444:</tt> USBHS M31_PHY_HS_BIST_MODE Register */
     __IO uint32_t m31_phy_coreclkin;    /**< <tt>\b 0x448:</tt> USBHS M31_PHY_CORECLKIN Register */
     __IO uint32_t m31_phy_xtlsel;       /**< <tt>\b 0x44C:</tt> USBHS M31_PHY_XTLSEL Register */
-    __R  uint32_t rsv_0x450_0x45b[3];
+    __IO uint32_t m31_phy_ls_en;        /**< <tt>\b 0x450:</tt> USBHS M31_PHY_LS_EN Register */
+    __IO uint32_t m31_phy_debug_sel;    /**< <tt>\b 0x454:</tt> USBHS M31_PHY_DEBUG_SEL Register */
+    __IO uint32_t m31_phy_debug_out;    /**< <tt>\b 0x458:</tt> USBHS M31_PHY_DEBUG_OUT Register */
     __IO uint32_t m31_phy_outclksel;    /**< <tt>\b 0x45C:</tt> USBHS M31_PHY_OUTCLKSEL Register */
-    __R  uint32_t rsv_0x460_0x497[14];
+    __IO uint32_t m31_phy_xcfgi_31_0;   /**< <tt>\b 0x460:</tt> USBHS M31_PHY_XCFGI_31_0 Register */
+    __IO uint32_t m31_phy_xcfgi_63_32;  /**< <tt>\b 0x464:</tt> USBHS M31_PHY_XCFGI_63_32 Register */
+    __IO uint32_t m31_phy_xcfgi_95_64;  /**< <tt>\b 0x468:</tt> USBHS M31_PHY_XCFGI_95_64 Register */
+    __IO uint32_t m31_phy_xcfgi_127_96; /**< <tt>\b 0x46C:</tt> USBHS M31_PHY_XCFGI_127_96 Register */
+    __IO uint32_t m31_phy_xcfgi_137_128; /**< <tt>\b 0x470:</tt> USBHS M31_PHY_XCFGI_137_128 Register */
+    __IO uint32_t m31_phy_xcfgi_hs_course_tune_num; /**< <tt>\b 0x474:</tt> USBHS M31_PHY_XCFGI_HS_COURSE_TUNE_NUM Register */
+    __IO uint32_t m31_phy_xcfgi_hs_fine_tune_num; /**< <tt>\b 0x478:</tt> USBHS M31_PHY_XCFGI_HS_FINE_TUNE_NUM Register */
+    __IO uint32_t m31_phy_xcfgi_fs_course_tune_num; /**< <tt>\b 0x47C:</tt> USBHS M31_PHY_XCFGI_FS_COURSE_TUNE_NUM Register */
+    __IO uint32_t m31_phy_xcfgi_fs_fine_tune_num; /**< <tt>\b 0x480:</tt> USBHS M31_PHY_XCFGI_FS_FINE_TUNE_NUM Register */
+    __IO uint32_t m31_phy_xcfgi_lock_range_max; /**< <tt>\b 0x484:</tt> USBHS M31_PHY_XCFGI_LOCK_RANGE_MAX Register */
+    __IO uint32_t m31_phy_xcfgi_lock_range_min; /**< <tt>\b 0x488:</tt> USBHS M31_PHY_XCFGI_LOCK_RANGE_MIN Register */
+    __IO uint32_t m31_phy_xcfgi_ob_rsel; /**< <tt>\b 0x48C:</tt> USBHS M31_PHY_XCFGI_OB_RSEL Register */
+    __IO uint32_t m31_phy_xcfgi_oc_rsel; /**< <tt>\b 0x490:</tt> USBHS M31_PHY_XCFGI_OC_RSEL Register */
+    __IO uint32_t m31_phy_xcfgo;        /**< <tt>\b 0x494:</tt> USBHS M31_PHY_XCFGO Register */
     __IO uint32_t mxm_int;              /**< <tt>\b 0x498:</tt> USBHS MXM_INT Register */
     __IO uint32_t mxm_int_en;           /**< <tt>\b 0x49C:</tt> USBHS MXM_INT_EN Register */
     __IO uint32_t mxm_suspend;          /**< <tt>\b 0x4A0:</tt> USBHS MXM_SUSPEND Register */
@@ -161,7 +185,7 @@ typedef struct {
 /**
  * @ingroup    usbhs_registers
  * @defgroup   USBHS_Register_Offsets Register Offsets
- * @brief      USBHS Peripheral Register Offsets from the USBHS Base Peripheral Address. 
+ * @brief      USBHS Peripheral Register Offsets from the USBHS Base Peripheral Address.
  * @{
  */
  #define MXC_R_USBHS_FADDR                  ((uint32_t)0x00000000UL) /**< Offset from USBHS Base Address: <tt> 0x0000</tt> */ 
@@ -207,14 +231,43 @@ typedef struct {
  #define MXC_R_USBHS_EARLYDMA               ((uint32_t)0x0000007BUL) /**< Offset from USBHS Base Address: <tt> 0x007B</tt> */ 
  #define MXC_R_USBHS_CTUCH                  ((uint32_t)0x00000080UL) /**< Offset from USBHS Base Address: <tt> 0x0080</tt> */ 
  #define MXC_R_USBHS_CTHSRTN                ((uint32_t)0x00000082UL) /**< Offset from USBHS Base Address: <tt> 0x0082</tt> */ 
+ #define MXC_R_USBHS_MXM_USB_REG_00         ((uint32_t)0x00000400UL) /**< Offset from USBHS Base Address: <tt> 0x0400</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_UTMI_RESET     ((uint32_t)0x00000404UL) /**< Offset from USBHS Base Address: <tt> 0x0404</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_UTMI_VCONTROL  ((uint32_t)0x00000408UL) /**< Offset from USBHS Base Address: <tt> 0x0408</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_CLK_EN         ((uint32_t)0x0000040CUL) /**< Offset from USBHS Base Address: <tt> 0x040C</tt> */ 
  #define MXC_R_USBHS_M31_PHY_PONRST         ((uint32_t)0x00000410UL) /**< Offset from USBHS Base Address: <tt> 0x0410</tt> */ 
  #define MXC_R_USBHS_M31_PHY_NONCRY_RSTB    ((uint32_t)0x00000414UL) /**< Offset from USBHS Base Address: <tt> 0x0414</tt> */ 
  #define MXC_R_USBHS_M31_PHY_NONCRY_EN      ((uint32_t)0x00000418UL) /**< Offset from USBHS Base Address: <tt> 0x0418</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_U2_COMPLIANCE_EN ((uint32_t)0x00000420UL) /**< Offset from USBHS Base Address: <tt> 0x0420</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_U2_COMPLIANCE_DAC_ADJ ((uint32_t)0x00000424UL) /**< Offset from USBHS Base Address: <tt> 0x0424</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_U2_COMPLIANCE_DAC_ADJ_EN ((uint32_t)0x00000428UL) /**< Offset from USBHS Base Address: <tt> 0x0428</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_CLK_RDY        ((uint32_t)0x0000042CUL) /**< Offset from USBHS Base Address: <tt> 0x042C</tt> */ 
  #define MXC_R_USBHS_M31_PHY_PLL_EN         ((uint32_t)0x00000430UL) /**< Offset from USBHS Base Address: <tt> 0x0430</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_BIST_OK        ((uint32_t)0x00000434UL) /**< Offset from USBHS Base Address: <tt> 0x0434</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_DATA_OE        ((uint32_t)0x00000438UL) /**< Offset from USBHS Base Address: <tt> 0x0438</tt> */ 
  #define MXC_R_USBHS_M31_PHY_OSCOUTEN       ((uint32_t)0x0000043CUL) /**< Offset from USBHS Base Address: <tt> 0x043C</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_LPM_ALIVE      ((uint32_t)0x00000440UL) /**< Offset from USBHS Base Address: <tt> 0x0440</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_HS_BIST_MODE   ((uint32_t)0x00000444UL) /**< Offset from USBHS Base Address: <tt> 0x0444</tt> */ 
  #define MXC_R_USBHS_M31_PHY_CORECLKIN      ((uint32_t)0x00000448UL) /**< Offset from USBHS Base Address: <tt> 0x0448</tt> */ 
  #define MXC_R_USBHS_M31_PHY_XTLSEL         ((uint32_t)0x0000044CUL) /**< Offset from USBHS Base Address: <tt> 0x044C</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_LS_EN          ((uint32_t)0x00000450UL) /**< Offset from USBHS Base Address: <tt> 0x0450</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_DEBUG_SEL      ((uint32_t)0x00000454UL) /**< Offset from USBHS Base Address: <tt> 0x0454</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_DEBUG_OUT      ((uint32_t)0x00000458UL) /**< Offset from USBHS Base Address: <tt> 0x0458</tt> */ 
  #define MXC_R_USBHS_M31_PHY_OUTCLKSEL      ((uint32_t)0x0000045CUL) /**< Offset from USBHS Base Address: <tt> 0x045C</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_31_0     ((uint32_t)0x00000460UL) /**< Offset from USBHS Base Address: <tt> 0x0460</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_63_32    ((uint32_t)0x00000464UL) /**< Offset from USBHS Base Address: <tt> 0x0464</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_95_64    ((uint32_t)0x00000468UL) /**< Offset from USBHS Base Address: <tt> 0x0468</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_127_96   ((uint32_t)0x0000046CUL) /**< Offset from USBHS Base Address: <tt> 0x046C</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_137_128  ((uint32_t)0x00000470UL) /**< Offset from USBHS Base Address: <tt> 0x0470</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_HS_COURSE_TUNE_NUM ((uint32_t)0x00000474UL) /**< Offset from USBHS Base Address: <tt> 0x0474</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_HS_FINE_TUNE_NUM ((uint32_t)0x00000478UL) /**< Offset from USBHS Base Address: <tt> 0x0478</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_FS_COURSE_TUNE_NUM ((uint32_t)0x0000047CUL) /**< Offset from USBHS Base Address: <tt> 0x047C</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_FS_FINE_TUNE_NUM ((uint32_t)0x00000480UL) /**< Offset from USBHS Base Address: <tt> 0x0480</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_LOCK_RANGE_MAX ((uint32_t)0x00000484UL) /**< Offset from USBHS Base Address: <tt> 0x0484</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_LOCK_RANGE_MIN ((uint32_t)0x00000488UL) /**< Offset from USBHS Base Address: <tt> 0x0488</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_OB_RSEL  ((uint32_t)0x0000048CUL) /**< Offset from USBHS Base Address: <tt> 0x048C</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGI_OC_RSEL  ((uint32_t)0x00000490UL) /**< Offset from USBHS Base Address: <tt> 0x0490</tt> */ 
+ #define MXC_R_USBHS_M31_PHY_XCFGO          ((uint32_t)0x00000494UL) /**< Offset from USBHS Base Address: <tt> 0x0494</tt> */ 
  #define MXC_R_USBHS_MXM_INT                ((uint32_t)0x00000498UL) /**< Offset from USBHS Base Address: <tt> 0x0498</tt> */ 
  #define MXC_R_USBHS_MXM_INT_EN             ((uint32_t)0x0000049CUL) /**< Offset from USBHS Base Address: <tt> 0x049C</tt> */ 
  #define MXC_R_USBHS_MXM_SUSPEND            ((uint32_t)0x000004A0UL) /**< Offset from USBHS Base Address: <tt> 0x04A0</tt> */ 

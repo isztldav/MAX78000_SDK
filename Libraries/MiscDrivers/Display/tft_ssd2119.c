@@ -45,15 +45,43 @@
 
 
 /************************************ DEFINES ********************************/
+#if defined(OLD_SPI_API) // Defined in spi.h file if the driver if first version
+    #define MXC_F_SPI_CTRL0_SS_ACTIVE       MXC_F_SPI_CTRL0_SS
+    #define MXC_F_SPI_CTRL0_SS_ACTIVE_POS   MXC_F_SPI_CTRL0_SS_POS
+    #define MXC_F_SPI_DMA_TX_FLUSH          MXC_F_SPI_DMA_TX_FIFO_CLEAR
+    #define MXC_F_SPI_DMA_RX_FLUSH          MXC_F_SPI_DMA_RX_FIFO_CLEAR
+    #define MXC_F_SPI_INTFL_MST_DONE        MXC_F_SPI_INT_FL_M_DONE
+#endif
+
 #define DISPLAY_WIDTH           320
 #define DISPLAY_HEIGHT          240
-#define TFT_SPI_FREQ    25000000 // Hz
-#define TFT_SPI0_PINS   MXC_GPIO_PIN_5 | MXC_GPIO_PIN_6 | MXC_GPIO_PIN_7 | MXC_GPIO_PIN_11
+
 //
 #define PALETTE_OFFSET(x)   concat(images_start_addr + images_header.offset2info_palatte  + 1 /* nb_palette */ + (x)*sizeof(unsigned int), 4)
 #define FONT_OFFSET(x)      concat(images_start_addr + images_header.offset2info_font     + 1 /* nb_font    */ + (x)*sizeof(unsigned int), 4)
 #define BITMAP_OFFSET(x)    concat(images_start_addr + images_header.offset2info_bitmap   + 1 /* nb_bitmap  */ + (x)*sizeof(unsigned int), 4)
 /********************************* TYPE DEFINES ******************************/
+// Wrap struct to manage SPI old register naming format
+typedef struct {
+  union{
+    __IO uint32_t fifo32;               /**< <tt>\b 0x00:</tt> SPI FIFO32 Register */
+    __IO uint16_t fifo16[2];            /**< <tt>\b 0x00:</tt> SPI FIFO16 Register */
+    __IO uint8_t  fifo8[4];             /**< <tt>\b 0x00:</tt> SPI FIFO8 Register */
+  };
+    __IO uint32_t ctrl0;                /**< <tt>\b 0x04:</tt> SPI CTRL0 Register */
+    __IO uint32_t ctrl1;                /**< <tt>\b 0x08:</tt> SPI CTRL1 Register */
+    __IO uint32_t ctrl2;                /**< <tt>\b 0x0C:</tt> SPI CTRL2 Register */
+    __IO uint32_t sstime;               /**< <tt>\b 0x10:</tt> SPI SSTIME Register */
+    __IO uint32_t clkctrl;              /**< <tt>\b 0x14:</tt> SPI CLKCTRL Register */
+    __R  uint32_t rsv_0x18;
+    __IO uint32_t dma;                  /**< <tt>\b 0x1C:</tt> SPI DMA Register */
+    __IO uint32_t intfl;                /**< <tt>\b 0x20:</tt> SPI INTFL Register */
+    __IO uint32_t inten;                /**< <tt>\b 0x24:</tt> SPI INTEN Register */
+    __IO uint32_t wkfl;                 /**< <tt>\b 0x28:</tt> SPI WKFL Register */
+    __IO uint32_t wken;                 /**< <tt>\b 0x2C:</tt> SPI WKEN Register */
+    __I  uint32_t stat;                 /**< <tt>\b 0x30:</tt> SPI STAT Register */
+} spi_regs_t;
+
 #pragma pack (1)
 
 typedef struct {
@@ -67,6 +95,7 @@ typedef struct {
 typedef struct {
     unsigned short x;
     unsigned char  w;
+	unsigned char  hex_code;
 } font_char_t;
 
 typedef struct {
@@ -108,10 +137,12 @@ static int          g_font_id = 0;
 
 static tft_rotation_t tft_rotation = SCREEN_NORMAL;
 
-static mxc_spi_regs_t* spi;
+static spi_regs_t* spi;
 static int ssel;
-static mxc_gpio_cfg_t* reset_pin;
-static mxc_gpio_cfg_t* blen_pin;
+static unsigned int tft_spi_freq;
+static mxc_gpio_cfg_t reset_pin;
+static mxc_gpio_cfg_t blen_pin;
+static mxc_gpio_cfg_t g_spi_gpio;
 
 /********************************* Static Functions **************************/
 static int concat(unsigned char* var, int size)
@@ -160,6 +191,7 @@ static void spi_transmit(void* datain, unsigned int count)
     MXC_SPI_MasterTransaction(&request);
 }
 #else
+
 static void spi_transmit(void* datain, unsigned int count)
 {
     unsigned int            offset;
@@ -167,8 +199,8 @@ static void spi_transmit(void* datain, unsigned int count)
     volatile unsigned short* u16ptrin = (volatile unsigned short*) datain;
     unsigned int             start = 0;
 
-    MXC_SPI_SetFrequency(spi, TFT_SPI_FREQ);
-    MXC_SPI_SetDataSize(spi, 9);
+    MXC_SPI_SetFrequency((mxc_spi_regs_t *)spi, tft_spi_freq);
+    MXC_SPI_SetDataSize((mxc_spi_regs_t *)spi, 9);
 
 
     // HW requires disabling/renabling SPI block at end of each transaction (when SS is inactive).
@@ -470,8 +502,20 @@ static void tft_spi_init(void)
     int quadMode = 0;
     int numSlaves = 2;
     int ssPol = 0;
-    unsigned int tft_hz = TFT_SPI_FREQ;
 
+#if defined(OLD_SPI_API) // Defined in spi.h file if the driver if first version
+    MXC_SPI_Init((mxc_spi_regs_t *)spi, master, quadMode, numSlaves, ssPol, tft_spi_freq);
+
+    // Todo:
+    // Due to missing API in driver layer below section has been added
+    // Remove it after related API has been added in driver.
+    // Used only for MAX32570
+
+    // Enable SPI1_SS0 pin (on own port, so SPI_Init doesn't enable it)
+    mxc_gpio_cfg_t SPI1_SS0 = { MXC_GPIO0, MXC_GPIO_PIN_31, MXC_GPIO_FUNC_ALT1, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIOH};
+    
+    MXC_GPIO_Config(&SPI1_SS0);
+#else
     mxc_spi_pins_t tft_pins;
 
     tft_pins.clock = true;
@@ -483,27 +527,27 @@ static void tft_spi_init(void)
     tft_pins.sdio2 = false;     ///< SDIO2 pin
     tft_pins.sdio3 = false;     ///< SDIO3 pin
 
-    MXC_SPI_Init(spi, master, quadMode, numSlaves, ssPol, tft_hz, tft_pins);
-
+    MXC_SPI_Init((mxc_spi_regs_t *)spi, master, quadMode, numSlaves, ssPol, tft_spi_freq, tft_pins);
+#endif
 
     // Set  SPI0 pins to VDDIOH (3.3V) to be compatible with TFT display
-    MXC_GPIO_SetVSSEL(MXC_GPIO0, MXC_GPIO_VSSEL_VDDIOH, TFT_SPI0_PINS);
-    MXC_SPI_SetDataSize(spi, 9);
-    MXC_SPI_SetWidth(spi, SPI_WIDTH_STANDARD);
+    MXC_GPIO_SetVSSEL(g_spi_gpio.port, g_spi_gpio.vssel, g_spi_gpio.mask);
+    MXC_SPI_SetDataSize((mxc_spi_regs_t *)spi, 9);
+    MXC_SPI_SetWidth((mxc_spi_regs_t *)spi, SPI_WIDTH_STANDARD);
 }
 
 static void displayInit(void)
 {
 
-    if (reset_pin) {
+    if (reset_pin.port) {
         // CLR Reset pin;
-        MXC_GPIO_OutClr(reset_pin->port, reset_pin->mask);
+        MXC_GPIO_OutClr(reset_pin.port, reset_pin.mask);
 
         // at least 15usec low
         MXC_Delay(20);
 
         // SET Reset pin;
-        MXC_GPIO_OutSet(reset_pin->port, reset_pin->mask);
+        MXC_GPIO_OutSet(reset_pin.port, reset_pin.mask);
 
         // delay after reset
         MXC_Delay(1000);
@@ -819,35 +863,64 @@ static void printCursor(char* str)
 
     get_font_info(g_font_id, &font_info, &chr_pos);
     get_bitmap_info(font_info.bitmap_id, &bitmap_info, &pixel);
-
+    setPalette(bitmap_info.id_palette);
+    
     len = strlen(str);
-
+    
     for (i = 0; i < len; i++) {
         if (str[i] == '\n') {
             printfCheckBounds(DISPLAY_WIDTH, bitmap_info.h);    // using display size will force cursor to next line
         }
-        else if ((str[i] < '!') || (str[i] > '~')) {
+        else if (str[i] == ' ') {
             printfCheckBounds(8, bitmap_info.h);                // Check if space will need to wrap
             cursor_x += 8;
         }
         else {
-            chId = str[i] - '!';
-            printfCheckBounds(chr_pos[chId].w + 1, bitmap_info.h);
-            writeSubBitmap(cursor_x, cursor_y, bitmap_info.w, bitmap_info.h, pixel, chr_pos[chId].x, chr_pos[chId].w);
-            cursor_x += chr_pos[chId].w + 1;// font.intr_chr;
+            // find char
+            for (chId = 0; chId < font_info.nb_char; chId++) {
+                if (str[i] == chr_pos[chId].hex_code) {
+                    printfCheckBounds(chr_pos[chId].w + 1, bitmap_info.h);
+                    writeSubBitmap(cursor_x, cursor_y, bitmap_info.w, bitmap_info.h, pixel, chr_pos[chId].x, chr_pos[chId].w);
+                    cursor_x += chr_pos[chId].w + 1;// font.intr_chr;
+                    break;
+                }
+            }
         }
     }
 }
 
 /******************************** Public Functions ***************************/
-int MXC_TFT_Init(mxc_spi_regs_t* tft_spi, int ss_idx, mxc_gpio_cfg_t* reset_ctrl, mxc_gpio_cfg_t* bl_ctrl)
+int MXC_TFT_PreInit(mxc_tft_spi_config* spi_config, mxc_gpio_cfg_t* reset_ctrl, mxc_gpio_cfg_t* bl_ctrl)
 {
     int result = E_NO_ERROR;
 
-    spi = tft_spi;
-    ssel = ss_idx;
-    reset_pin = reset_ctrl;
-    blen_pin = bl_ctrl;
+    if ( spi_config == NULL ) {
+        return -1;
+    }
+
+    spi  = (spi_regs_t *)spi_config->regs;// cast to internal structure to manage old spi regs
+    ssel = spi_config->ss_idx;
+    tft_spi_freq = spi_config->freq;
+    g_spi_gpio = spi_config->gpio;
+
+    if (reset_ctrl) {
+        reset_pin = *reset_ctrl;
+    } else {
+        reset_pin.port = NULL; // means not initialized
+    }
+
+    if (bl_ctrl) {
+        blen_pin = *bl_ctrl;
+    } else {
+        blen_pin.port = NULL; // means not initialized
+    }
+
+    return result;
+}
+
+int MXC_TFT_Init(void)
+{
+    int result = E_NO_ERROR;
 
     // set images start addr
     if (images_start_addr == NULL) {
@@ -861,12 +934,12 @@ int MXC_TFT_Init(mxc_spi_regs_t* tft_spi, int ss_idx, mxc_gpio_cfg_t* reset_ctrl
     /*
      *      Configure GPIO Pins
      */
-    if (reset_pin) {
-        MXC_GPIO_Config(reset_pin);
+    if (reset_pin.port) {
+        MXC_GPIO_Config(&reset_pin);
     }
 
-    if (blen_pin) {
-        MXC_GPIO_Config(blen_pin);
+    if (blen_pin.port) {
+        MXC_GPIO_Config(&blen_pin);
     }
 
     // Configure SPI Pins
@@ -940,12 +1013,12 @@ int MXC_TFT_SetPalette(int img_id)
 
 void MXC_TFT_Backlight(int on)
 {
-    if (blen_pin) {
+    if (blen_pin.port) {
         if (on) {
-            MXC_GPIO_OutSet(blen_pin->port, blen_pin->mask);
+            MXC_GPIO_OutSet(blen_pin.port, blen_pin.mask);
         }
         else {
-            MXC_GPIO_OutClr(blen_pin->port, blen_pin->mask);
+            MXC_GPIO_OutClr(blen_pin.port, blen_pin.mask);
         }
     }
 }
@@ -1255,24 +1328,31 @@ void MXC_TFT_PrintFont(int x0, int y0, int id, text_t* str, area_t* area)
 
     get_font_info(id, &font_info, &chr_pos);
     get_bitmap_info(font_info.bitmap_id, &bitmap_info, &pixel);
+	setPalette(bitmap_info.id_palette);
 
     x = x0;
 
     for (i = 0; i < str->len; i++) {
-        if ((str->data[i] < '!') || (str->data[i] > '~')) {
+        if (str->data[i] == ' ') {
             x += 8;    //font.space; // TODO add space in font bitmap file
         }
         else {
-            chId = str->data[i] - '!';
+			// find char
+            for (chId = 0; chId < font_info.nb_char; chId++) {
+                if (str->data[i] == chr_pos[chId].hex_code) {
 
-            if (tft_rotation == SCREEN_NORMAL || tft_rotation == SCREEN_FLIP) {
-                writeSubBitmap(x, y0, bitmap_info.w, bitmap_info.h, pixel, chr_pos[chId].x, chr_pos[chId].w);
-            }
-            else if (tft_rotation == SCREEN_ROTATE) {
-                writeSubBitmap_Rotated(x, y0, bitmap_info.w, bitmap_info.h, pixel, chr_pos[chId].x, chr_pos[chId].w);
-            }
+					if (tft_rotation == SCREEN_NORMAL || tft_rotation == SCREEN_FLIP) {
+						writeSubBitmap(x, y0, bitmap_info.w, bitmap_info.h, pixel, chr_pos[chId].x, chr_pos[chId].w);
+					}
+					else if (tft_rotation == SCREEN_ROTATE) {
+						writeSubBitmap_Rotated(x, y0, bitmap_info.w, bitmap_info.h, pixel, chr_pos[chId].x, chr_pos[chId].w);
+					}
 
-            x += chr_pos[chId].w + 1;// font.intr_chr;
+					x += chr_pos[chId].w + 1;// font.intr_chr;
+					
+                    break;
+                }
+            }
         }
     }
 

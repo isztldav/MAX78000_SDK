@@ -35,7 +35,7 @@
  ###############################################################################
 
 # This is the name of the build output file
-PROJECT=FAT32
+override PROJECT=FAT32
 
 ifeq "$(TARGET)" ""
 $(error TARGET must be specified)

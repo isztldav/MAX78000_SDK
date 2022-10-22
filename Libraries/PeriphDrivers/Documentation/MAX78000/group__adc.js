@@ -8,7 +8,7 @@ var group__adc =
     [ "MXC_ADC_Busy", "group__adc.html#ga5140b227686c0bf4fe35437a5ca9db73", null ],
     [ "MXC_ADC_ClearFlags", "group__adc.html#ga09c4099862f88a1a27c2473c1d38f397", null ],
     [ "MXC_ADC_Convert", "group__adc.html#gaa14e620105c777b24288dc978549b082", null ],
-    [ "MXC_ADC_ConvertAsync", "group__adc.html#ga78cea0fbeed992159f3293d41c3c6ed9", null ],
+    [ "MXC_ADC_ConvertAsync", "group__adc.html#ga8893dea64fd4ad17a0b2b18dac2b0197", null ],
     [ "MXC_ADC_DisableComparators", "group__adc.html#ga58202f3b07ce0ad2ffacdbb1fbab640f", null ],
     [ "MXC_ADC_DisableInt", "group__adc.html#gaf70d7d33806dbd71f148a0f2f786e7fc", null ],
     [ "MXC_ADC_DisableMonitor", "group__adc.html#ga164db2e39e469a49b71696e9fe80660c", null ],

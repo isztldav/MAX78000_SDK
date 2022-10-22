@@ -149,6 +149,18 @@ int MXC_USB_Init(maxusb_cfg_options_t *options)
     MXC_USBHS->mxm_suspend = 0;
 
     /* Configure PHY */
+#if 0	
+    MXC_USBHS->xcfgi0 = (0x1 << 3) | (0x1 << 11);
+    MXC_USBHS->xcfgi1 = 0;
+    MXC_USBHS->xcfgi2 = 0x1 << (72-64);
+    MXC_USBHS->xcfgi3 = 0;
+#endif
+    MXC_USBHS->m31_phy_xcfgi_31_0 = (0x1 << 3) | (0x1 << 11);
+    MXC_USBHS->m31_phy_xcfgi_63_32 = 0;
+    MXC_USBHS->m31_phy_xcfgi_95_64 = 0x1 << (72-64);
+    MXC_USBHS->m31_phy_xcfgi_127_96 = 0;
+	
+
 #ifdef USBHS_M31_CLOCK_RECOVERY
     MXC_USBHS->m31_phy_noncry_rstb = 1;
     MXC_USBHS->m31_phy_noncry_en = 1;
@@ -487,7 +499,6 @@ void MXC_USB_DmaIsr(void)
 /* sent packet done handler*/
 static void event_in_data(uint32_t irqs)
 {
-    static unsigned char zlp = 0;
     uint32_t ep, buffer_bit, data_left;
     MXC_USB_Req_t *req;
     unsigned int len;
@@ -512,20 +523,9 @@ static void event_in_data(uint32_t irqs)
         req = MXC_USB_Request[ep];
         data_left = req->reqlen - req->actlen;
 
-		if ((data_left == 0)&&(zlp == 1)) {
-            /* free request first, the callback may re-issue a request */
-            MXC_USB_Request[ep] = NULL;
-			zlp = 0;
-
-            /* must have sent the ZLP, mark done */
-            if (req->callback) {
-                req->callback(req->cbdata);
-            }
-            continue;
-        }
-
         /* Check for more data left to transmit */
         if (data_left) {
+
             if (data_left >= ep_size[ep]) {
                 len = ep_size[ep];
             } else {
@@ -537,42 +537,36 @@ static void event_in_data(uint32_t irqs)
             req->actlen += len;
 
             if (!ep) {
-                MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_INPKTRDY;
+                if (MXC_USB_Request[ep]->actlen == MXC_USB_Request[ep]->reqlen) {
+                    /* Implicit status-stage ACK, move state machine back to IDLE */
+                    setup_phase = SETUP_IDLE;
+                    MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_INPKTRDY | MXC_F_USBHS_CSR0_DATA_END;
+
+                    /* free request */
+                    MXC_USB_Request[ep] = NULL;
+
+                    /* set done return value */
+                    if (req->callback) {
+			req->callback(req->cbdata);
+                    }
+                } else {
+                    MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_INPKTRDY;
+                }
             } else {
                 /* Arm for transmit to host */
                 MXC_USBHS->incsrl = MXC_F_USBHS_INCSRL_INPKTRDY;
             }
+
         } else {
             /* all done sending data */
-			/* all done sending data, either send ZLP or done here */
-            if ((MXC_USB_Request[ep]->reqlen & (ep_size[ep]-1)) == 0) {
-                /* send ZLP per spec, last packet was full sized and nothing left to send */
-                if (!ep) {
-					zlp =1;
-					setup_phase = SETUP_IDLE;
-					MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_INPKTRDY|MXC_F_USBHS_CSR0_DATA_END;
-				} else {
-					/* Arm for transmit to host */
-#if 0
-					zlp =1;
-					MXC_USBHS->incsrl = MXC_F_USBHS_INCSRL_INPKTRDY;
-#else
-					MXC_USB_Request[ep] = NULL;
-					/* set done return value */
-					if (req->callback) {
-						req->callback(req->cbdata);
-					}
-#endif
-				}	
+
+            /* free request */
+            MXC_USB_Request[ep] = NULL;
+
+            /* set done return value */
+            if (req->callback) {
+                req->callback(req->cbdata);
             }
-			else{
-				/* free request */
-				MXC_USB_Request[ep] = NULL;
-				/* set done return value */
-				if (req->callback) {
-					req->callback(req->cbdata);
-				}
-			}
         }
     }
 }
@@ -580,12 +574,12 @@ static void event_in_data(uint32_t irqs)
 /* received packet */
 static void event_out_data(uint32_t irqs)
 {
-    uint32_t ep, buffer_bit, reqsize, rxsize;
+    uint32_t ep, buffer_bit, reqsize;
     MXC_USB_Req_t *req;
 
     /* Loop for each data endpoint */
     for (ep = 0; ep < MXC_USBHS_NUM_EP; ep++) {
-
+	
         buffer_bit = (1 << ep);
         if ((irqs & buffer_bit) == 0) {
             continue;
@@ -602,61 +596,93 @@ static void event_out_data(uint32_t irqs)
 
         /* Select this endpoint for banked registers */
         MXC_USBHS->index = ep;
-		
-		/* what was the last request size? */
-        if ((req->reqlen - req->actlen) >= ep_size[ep]) {
-            reqsize = ep_size[ep];
+
+        if (!ep) {
+            if (!(MXC_USBHS->csr0 & MXC_F_USBHS_CSR0_OUTPKTRDY)) {
+                continue;
+            }
+            if (MXC_USBHS->count0 == 0) {
+                /* ZLP */
+                MXC_USB_Request[ep] = NULL;
+                /* Let the callback do the status stage */
+                /* call it done */
+                if (req->callback) {
+                    req->callback(req->cbdata);
+                }
+                continue;
+            } else {
+                /* Write as much as we can to the request buffer */
+                reqsize = MXC_USBHS->count0;
+                if (reqsize > (req->reqlen - req->actlen)) {
+                    reqsize = (req->reqlen - req->actlen);
+                }
+            }
         } else {
-            reqsize = (req->reqlen - req->actlen);
-        }
+            if (!(MXC_USBHS->outcsrl & MXC_F_USBHS_OUTCSRL_OUTPKTRDY)) {
+                /* No packet on this endpoint? */
+                continue;
+            }
+            if (MXC_USBHS->outcount == 0) {
+                /* ZLP */
+                /* Clear out request */
+                MXC_USB_Request[ep] = NULL;
 
-        /* the actual size of data written to buffer will be the lesser of the packet size and the requested size */
-		if (!ep)
-		{
-			if (reqsize < MXC_USBHS->count0) {
-				rxsize = reqsize;
-			} else {
-				rxsize = MXC_USBHS->count0;
-			}
-		}
-		else
-		{
-			if (reqsize < MXC_USBHS->outcount) {
-				rxsize = reqsize;
-			} else {
-				rxsize = MXC_USBHS->outcount;
-			}
-		}
+                /* Signal to H/W that FIFO has been read */
+                MXC_USBHS->outcsrl &= ~MXC_F_USBHS_OUTCSRL_OUTPKTRDY;
 
-		unload_fifo(&req->data[req->actlen], get_fifo_ptr(ep), rxsize);
-        req->actlen += rxsize;
+                /* Disable interrupt for this endpoint */
+                MXC_USBHS->introuten &= ~(1 << ep);
 
-        /* less than a full packet or zero length packet)  */
-        if ((req->type == MAXUSB_TYPE_PKT) || (rxsize < ep_size[ep]) || (rxsize == 0)) {
-			if (!ep){
-				MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_SERV_OUTPKTRDY | MXC_F_USBHS_CSR0_DATA_END;
-			}
-			else{
-				MXC_USBHS->outcsrl &= ~MXC_F_USBHS_OUTCSRL_OUTPKTRDY;
-				//MXC_USBHS->introuten &= ~(1 << ep);
-			}
-            /* free request */
-            MXC_USB_Request[ep] = NULL;
+                /* Complete request */
+                if (req->callback) {
+                    req->callback(req->cbdata);
+                }
+                continue;
 
-            /* call it done */
-            if (req->callback) {
-                req->callback(req->cbdata);
+            } else {
+                /* Write as much as we can to the request buffer */
+                reqsize = MXC_USBHS->outcount;
+                if (reqsize > (req->reqlen - req->actlen)) {
+                    reqsize = (req->reqlen - req->actlen);
+                }
             }
         }
-        else 
-		{
-			if (!ep) {
-					/* More data */
-				MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_SERV_OUTPKTRDY;							
-			} else {
-				/* Signal to H/W that FIFO has been read */
-				MXC_USBHS->outcsrl &= ~MXC_F_USBHS_OUTCSRL_OUTPKTRDY;
-			}
+
+        unload_fifo(&req->data[req->actlen], get_fifo_ptr(ep), reqsize);
+
+        req->actlen += reqsize;
+
+        if (!ep) {
+            if (req->actlen == req->reqlen) {
+                /* No more data */
+                MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_SERV_OUTPKTRDY | MXC_F_USBHS_CSR0_DATA_END;
+                /* Done */
+                MXC_USB_Request[ep] = NULL;
+
+                if (req->callback) {
+                    req->callback(req->cbdata);
+                }
+            } else {
+                /* More data */
+                MXC_USBHS->csr0 |= MXC_F_USBHS_CSR0_SERV_OUTPKTRDY;
+            }
+        } else {
+            /* Signal to H/W that FIFO has been read */
+            MXC_USBHS->outcsrl &= ~MXC_F_USBHS_OUTCSRL_OUTPKTRDY;
+
+            if ((req->type == MAXUSB_TYPE_PKT) || (req->actlen == req->reqlen)) {
+                /* Done */
+                MXC_USB_Request[ep] = NULL;
+
+                /* Disable interrupt for this endpoint */
+                MXC_USBHS->introuten &= ~(1 << ep);
+
+                /* Complete request */
+                if (req->callback) {
+                    req->callback(req->cbdata);
+                }
+
+            }
         }
     }
 }
@@ -863,6 +889,7 @@ int MXC_USB_GetSetup(MXC_USB_SetupPkt *sud)
     MXC_USBHS->index = 0;
 
     if ((sud == NULL) || !(MXC_USBHS->csr0 & MXC_F_USBHS_CSR0_OUTPKTRDY)) {
+	    MAXUSB_EXIT_CRITICAL();						
         return -1;
     }
 
@@ -1059,15 +1086,14 @@ int MXC_USB_ReadEndpoint(MXC_USB_Req_t *req)
             
                 /* Signal to H/W that FIFO has been read */
                 MXC_USBHS->outcsrl &= ~MXC_F_USBHS_OUTCSRL_OUTPKTRDY;
-            
                 if ((req->type == MAXUSB_TYPE_PKT) || (req->actlen == req->reqlen)) {
+                 /* Done with request, callback fires if configured */
+                    MAXUSB_EXIT_CRITICAL();
                     MXC_USB_Request[ep] = NULL;
                   
                     if (req->callback) {
                         req->callback(req->cbdata);
                     }
-                    /* Done */
-                    MAXUSB_EXIT_CRITICAL();
                     return 0;
                 } else {
 		            /* Not done, more data requested */

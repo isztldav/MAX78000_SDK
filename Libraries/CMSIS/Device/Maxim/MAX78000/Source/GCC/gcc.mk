@@ -134,13 +134,35 @@ ifeq "$(MXC_OPTIMIZE_CFLAGS)" ""
 MXC_OPTIMIZE_CFLAGS = -Os
 endif
 
+# Float ABI options:
+# See https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html (-mfloat-abi)
+# Specifies which floating-point ABI to use. Permissible values are: ‘soft’, ‘softfp’ and ‘hard’.
+
+# Specifying ‘soft’ causes GCC to generate output containing library calls for floating-point
+# operations. ‘softfp’ allows the generation of code using hardware floating-point
+# instructions, but still uses the soft-float calling conventions. ‘hard’ allows generation of
+# floating-point instructions and uses FPU-specific calling conventions.
+
+# The default depends on the specific target configuration. Note that the hard-float and
+# soft-float ABIs are not link-compatible; you must compile your entire program with the same
+# ABI, and link with a compatible set of libraries.
+ifeq "$(MFLOAT_ABI)" ""
+MFLOAT_ABI = softfp
+endif
+
+# (deprecated) MFLOAT_FLAGS
+ifneq "$(MFLOAT_FLAGS)" ""
+$(warning MFLOAT_FLAGS has been deprecated!  Please use MFLOAT_ABI instead.)
+MFLOAT_ABI = $(MFLOAT_FLAGS) # Copy over to new option for backwards compatability
+endif
+
 # The flags passed to the compiler.
 # fno-isolate-erroneous-paths-dereference disables the check for pointers with the value of 0
 #  add this below when arm-none-eabi-gcc version is past 4.8 -fno-isolate-erroneous-paths-dereference                                \
 
 CFLAGS=-mthumb                                                                 \
        -mcpu=cortex-m4                                                         \
-       -mfloat-abi=softfp                                                      \
+       -mfloat-abi=$(MFLOAT_ABI)                                                      \
        -mfpu=fpv4-sp-d16                                                       \
        -Wa,-mimplicit-it=thumb                                                 \
        $(MXC_OPTIMIZE_CFLAGS)   											   \
@@ -155,7 +177,7 @@ CFLAGS=-mthumb                                                                 \
 CXXFLAGS= \
 	-mthumb					\
 	-mcpu=cortex-m4				\
-	-mfloat-abi=softfp			\
+	-mfloat-abi=$(MFLOAT_ABI)			\
 	-mfpu=fpv4-sp-d16			\
 	-Wa,-mimplicit-it=thumb			\
 	$(MXC_OPTIMIZE_CFLAGS)			\
@@ -203,7 +225,7 @@ LD=${PREFIX}-gcc
 # The flags passed to the linker.
 LDFLAGS=-mthumb                                                                \
         -mcpu=cortex-m4                                                        \
-        -mfloat-abi=softfp                                                     \
+        -mfloat-abi=$(MFLOAT_ABI)                                                     \
         -mfpu=fpv4-sp-d16                                                      \
         -Xlinker --gc-sections                                                 \
 	-Xlinker -Map -Xlinker ${BUILD_DIR}/$(PROJECT).map

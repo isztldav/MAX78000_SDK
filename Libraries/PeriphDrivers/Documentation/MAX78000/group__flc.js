@@ -3,6 +3,8 @@ var group__flc =
     [ "FLC_Registers", "group__flc__registers.html", "group__flc__registers" ],
     [ "MXC_FLASH_PAGE_ADDR", "group__flc.html#gafd2d64053cfb7718540dabced58857f4", null ],
     [ "MXC_FLASH_PAGE_MASK", "group__flc.html#gad726ec4ae8a020fffe03fafaf0ff08a9", null ],
+    [ "MXC_FLC_BlockPageRead", "group__flc.html#ga9cc38aba2ddda2be803d7c8af0ff57be", null ],
+    [ "MXC_FLC_BlockPageWrite", "group__flc.html#gaf332bac0bd7b380e2b913f266a71211f", null ],
     [ "MXC_FLC_Busy", "group__flc.html#ga851aa87519fefc63fc277f911a55f33f", null ],
     [ "MXC_FLC_ClearFlags", "group__flc.html#gac1be050abb30820d378f242576a26cd9", null ],
     [ "MXC_FLC_DisableInt", "group__flc.html#gacd5723a6d7273850061b8e4cc7a94439", null ],

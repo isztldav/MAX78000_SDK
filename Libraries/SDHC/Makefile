@@ -35,7 +35,7 @@
  ###############################################################################
 
 # This is the name of the build output file
-PROJECT=sdhc
+override PROJECT=sdhc
 
 ifeq "$(TARGET)" ""
 $(error TARGET must be specified)

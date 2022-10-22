@@ -39,71 +39,88 @@
 #include "owm_reva.h"
 
 /* **** Definitions **** */
-#define MXC_OWM_CLK_FREQ    1000000 //1-Wire requires 1MHz clock
+#define MXC_OWM_CLK_FREQ 1000000 //1-Wire requires 1MHz clock
 
 /* **** Globals **** */
 
 /* **** Functions **** */
 
-int MXC_OWM_Init(const mxc_owm_cfg_t *cfg)
+int MXC_OWM_Init(const mxc_owm_cfg_t* cfg, sys_map_t map)
 {
     int err = 0;
     uint32_t mxc_owm_clk, clk_div = 0;
-    
-    if(cfg == NULL) {
+
+    if (cfg == NULL) {
         return E_NULL_PTR;
     }
-    
+
     // Set system level configurations
-    mxc_gpio_regs_t *gpio = gpio_cfg_owm.port;
-    
     MXC_SYS_ClockEnable(MXC_SYS_PERIPH_CLOCK_OWIRE);
-    gpio->vssel |= gpio_cfg_owm.mask;         // 1-Wire pins need to be at 3.3V.
-    
-    if((err = MXC_GPIO_Config(&gpio_cfg_owm)) != E_NO_ERROR) {
+
+    const mxc_gpio_cfg_t* gpio;
+    switch (map) {
+        case MAP_A:
+            gpio = &gpio_cfg_owma;
+            break;
+        case MAP_B:
+            gpio = &gpio_cfg_owmb;
+            break;
+        case MAP_C:
+            gpio = &gpio_cfg_owmc;
+            break;
+        default:
+            gpio = &gpio_cfg_owma;
+            break;
+    }
+
+    if ((err = MXC_GPIO_Config(gpio)) != E_NO_ERROR) {
         return err;
     }
-    
+
     // Configure clk divisor to get 1MHz OWM clk
     mxc_owm_clk = PeripheralClock;
-    
-    if(mxc_owm_clk == 0) {
-        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC);  // SPIXFC
+
+    if (mxc_owm_clk == 0) {
+        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_OWIRE);
+        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC); // SPIXFC
         MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXIP); // SPIX
         return E_UNINITIALIZED;
     }
-    
+
     // Return error if clk doesn't divide evenly to 1MHz
-    if(mxc_owm_clk % MXC_OWM_CLK_FREQ) {
-        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC);  // SPIXFC
+    if (mxc_owm_clk % MXC_OWM_CLK_FREQ) {
+        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_OWIRE);
+        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC); // SPIXFC
         MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXIP); // SPIX
         return E_NOT_SUPPORTED;
     }
-    
-    clk_div =(mxc_owm_clk /(MXC_OWM_CLK_FREQ));
-    
+
+    clk_div = (mxc_owm_clk / (MXC_OWM_CLK_FREQ));
+
     // Can not support lower frequencies
-    if(clk_div == 0) {
-        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC);  // SPIXFC
+    if (clk_div == 0) {
+        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_OWIRE);
+        MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC); // SPIXFC
         MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXIP); // SPIX
         return E_NOT_SUPPORTED;
     }
-    
-    return MXC_OWM_RevA_Init((mxc_owm_reva_regs_t*) MXC_OWM, cfg);
+
+    return MXC_OWM_RevA_Init((mxc_owm_reva_regs_t*)MXC_OWM, cfg);
 }
 
 void MXC_OWM_Shutdown(void)
 {
     // Disable and clear interrupts
-    MXC_OWM_RevA_Shutdown((mxc_owm_reva_regs_t*) MXC_OWM);
-    
-    MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC);  // SPIXFC
+    MXC_OWM_RevA_Shutdown((mxc_owm_reva_regs_t*)MXC_OWM);
+
+    MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_OWIRE);
+    MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXFC); // SPIXFC
     MXC_SYS_ClockDisable(MXC_SYS_PERIPH_CLOCK_SPIXIP); // SPIX
 }
 
 int MXC_OWM_Reset(void)
 {
-    return MXC_OWM_RevA_Reset((mxc_owm_reva_regs_t*) MXC_OWM);
+    return MXC_OWM_RevA_Reset((mxc_owm_reva_regs_t*)MXC_OWM);
 }
 
 int MXC_OWM_GetPresenceDetect(void)
@@ -113,7 +130,7 @@ int MXC_OWM_GetPresenceDetect(void)
 
 int MXC_OWM_TouchByte(uint8_t data)
 {
-    return MXC_OWM_RevA_TouchByte((mxc_owm_reva_regs_t*) MXC_OWM, data);
+    return MXC_OWM_RevA_TouchByte((mxc_owm_reva_regs_t*)MXC_OWM, data);
 }
 
 int MXC_OWM_WriteByte(uint8_t data)
@@ -128,7 +145,7 @@ int MXC_OWM_ReadByte(void)
 
 int MXC_OWM_TouchBit(uint8_t bit)
 {
-    return MXC_OWM_RevA_TouchBit((mxc_owm_reva_regs_t*) MXC_OWM, bit);
+    return MXC_OWM_RevA_TouchBit((mxc_owm_reva_regs_t*)MXC_OWM, bit);
 }
 
 int MXC_OWM_WriteBit(uint8_t bit)
@@ -143,12 +160,12 @@ int MXC_OWM_ReadBit(void)
 
 int MXC_OWM_Write(uint8_t* data, int len)
 {
-    return MXC_OWM_RevA_Write((mxc_owm_reva_regs_t*) MXC_OWM, data, len);
+    return MXC_OWM_RevA_Write((mxc_owm_reva_regs_t*)MXC_OWM, data, len);
 }
 
 int MXC_OWM_Read(uint8_t* data, int len)
 {
-    return MXC_OWM_RevA_Read((mxc_owm_reva_regs_t*) MXC_OWM, data, len);
+    return MXC_OWM_RevA_Read((mxc_owm_reva_regs_t*)MXC_OWM, data, len);
 }
 
 int MXC_OWM_ReadROM(uint8_t* ROMCode)
@@ -163,7 +180,7 @@ int MXC_OWM_MatchROM(uint8_t* ROMCode)
 
 int MXC_OWM_ODMatchROM(uint8_t* ROMCode)
 {
-    return MXC_OWM_RevA_ODMatchROM((mxc_owm_reva_regs_t*) MXC_OWM, ROMCode);
+    return MXC_OWM_RevA_ODMatchROM((mxc_owm_reva_regs_t*)MXC_OWM, ROMCode);
 }
 
 int MXC_OWM_SkipROM(void)
@@ -173,7 +190,7 @@ int MXC_OWM_SkipROM(void)
 
 int MXC_OWM_ODSkipROM(void)
 {
-    return MXC_OWM_RevA_ODSkipROM((mxc_owm_reva_regs_t*) MXC_OWM);
+    return MXC_OWM_RevA_ODSkipROM((mxc_owm_reva_regs_t*)MXC_OWM);
 }
 
 int MXC_OWM_Resume(void)
@@ -183,81 +200,80 @@ int MXC_OWM_Resume(void)
 
 int MXC_OWM_SearchROM(int newSearch, uint8_t* ROMCode)
 {
-    return MXC_OWM_RevA_SearchROM((mxc_owm_reva_regs_t*) MXC_OWM, newSearch, ROMCode);
+    return MXC_OWM_RevA_SearchROM((mxc_owm_reva_regs_t*)MXC_OWM, newSearch, ROMCode);
 }
 
 void MXC_OWM_ClearFlags(uint32_t mask)
 {
-    MXC_OWM_RevA_ClearFlags((mxc_owm_reva_regs_t*) MXC_OWM, mask);
+    MXC_OWM_RevA_ClearFlags((mxc_owm_reva_regs_t*)MXC_OWM, mask);
 }
 
 unsigned MXC_OWM_GetFlags(void)
 {
-    return MXC_OWM_RevA_GetFlags((mxc_owm_reva_regs_t*) MXC_OWM);
+    return MXC_OWM_RevA_GetFlags((mxc_owm_reva_regs_t*)MXC_OWM);
 }
 
 void MXC_OWM_SetExtPullup(int enable)
 {
-    MXC_OWM_RevA_SetExtPullup((mxc_owm_reva_regs_t*) MXC_OWM, enable);
+    MXC_OWM_RevA_SetExtPullup((mxc_owm_reva_regs_t*)MXC_OWM, enable);
 }
 
 void MXC_OWM_SetOverdrive(int enable)
 {
-    MXC_OWM_RevA_SetOverdrive((mxc_owm_reva_regs_t*) MXC_OWM, enable);
+    MXC_OWM_RevA_SetOverdrive((mxc_owm_reva_regs_t*)MXC_OWM, enable);
 }
 
 void MXC_OWM_EnableInt(int flags)
 {
-    MXC_OWM_RevA_EnableInt((mxc_owm_reva_regs_t*) MXC_OWM, flags);
+    MXC_OWM_RevA_EnableInt((mxc_owm_reva_regs_t*)MXC_OWM, flags);
 }
 
 void MXC_OWM_DisableInt(int flags)
 {
-    MXC_OWM_RevA_DisableInt((mxc_owm_reva_regs_t*) MXC_OWM, flags);
+    MXC_OWM_RevA_DisableInt((mxc_owm_reva_regs_t*)MXC_OWM, flags);
 }
 
 int MXC_OWM_SetForcePresenceDetect(int enable)
 {
-    return MXC_OWM_RevA_SetForcePresenceDetect((mxc_owm_reva_regs_t*) MXC_OWM, enable);
+    return MXC_OWM_RevA_SetForcePresenceDetect((mxc_owm_reva_regs_t*)MXC_OWM, enable);
 }
 
 int MXC_OWM_SetInternalPullup(int enable)
 {
-    return MXC_OWM_RevA_SetInternalPullup((mxc_owm_reva_regs_t*) MXC_OWM, enable);
+    return MXC_OWM_RevA_SetInternalPullup((mxc_owm_reva_regs_t*)MXC_OWM, enable);
 }
 
 int MXC_OWM_SetExternalPullup(mxc_owm_ext_pu_t ext_pu_mode)
 {
-    return MXC_OWM_RevA_SetExternalPullup((mxc_owm_reva_regs_t*) MXC_OWM, ext_pu_mode);
+    return MXC_OWM_RevA_SetExternalPullup((mxc_owm_reva_regs_t*)MXC_OWM, ext_pu_mode);
 }
 
 int MXC_OWM_SystemClockUpdated(void)
 {
-    return MXC_OWM_RevA_SystemClockUpdated((mxc_owm_reva_regs_t*) MXC_OWM);
+    return MXC_OWM_RevA_SystemClockUpdated((mxc_owm_reva_regs_t*)MXC_OWM);
 }
 
 int MXC_OWM_SetSearchROMAccelerator(int enable)
 {
-    return MXC_OWM_RevA_SetSearchROMAccelerator((mxc_owm_reva_regs_t*) MXC_OWM, enable);
+    return MXC_OWM_RevA_SetSearchROMAccelerator((mxc_owm_reva_regs_t*)MXC_OWM, enable);
 }
 
 int MXC_OWM_BitBang_Init(int initialState)
 {
-    return MXC_OWM_RevA_BitBang_Init((mxc_owm_reva_regs_t*) MXC_OWM, initialState);
+    return MXC_OWM_RevA_BitBang_Init((mxc_owm_reva_regs_t*)MXC_OWM, initialState);
 }
 
 int MXC_OWM_BitBang_Read(void)
 {
-    return MXC_OWM_RevA_BitBang_Read((mxc_owm_reva_regs_t*) MXC_OWM);
+    return MXC_OWM_RevA_BitBang_Read((mxc_owm_reva_regs_t*)MXC_OWM);
 }
 
 int MXC_OWM_BitBang_Write(int state)
 {
-    return MXC_OWM_RevA_BitBang_Write((mxc_owm_reva_regs_t*) MXC_OWM, state);
+    return MXC_OWM_RevA_BitBang_Write((mxc_owm_reva_regs_t*)MXC_OWM, state);
 }
 
 int MXC_OWM_BitBang_Disable(void)
 {
-    return MXC_OWM_RevA_BitBang_Disable((mxc_owm_reva_regs_t*) MXC_OWM);
+    return MXC_OWM_RevA_BitBang_Disable((mxc_owm_reva_regs_t*)MXC_OWM);
 }
-

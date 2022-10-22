@@ -88,6 +88,12 @@ endif
 ifeq "$(TARGET_UC)" "MAX32570"
 TARGET_USB=MUSBHSFC
 endif
+ifeq "$(TARGET_UC)" "MAX32690"
+TARGET_USB=MUSBHSFC
+endif
+ifeq "$(TARGET_UC)" "MAX78002"
+TARGET_USB=MUSBHSFC
+endif
 
 # Add to include directory list
 ifeq "$(TARGET_USB)" "MUSBHSFC"

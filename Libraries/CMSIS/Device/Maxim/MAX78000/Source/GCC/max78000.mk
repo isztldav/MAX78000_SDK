@@ -35,11 +35,13 @@
  ###############################################################################
 
 ifeq "$(CMSIS_ROOT)" ""
-$(error CMSIS_ROOT must be specified)
+# If CMSIS_ROOT is not specified, this Makefile will calculate CMSIS_ROOT relative to itself.
+GCC_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+CMSIS_ROOT := $(abspath $(GCC_DIR)../../../../..)
 endif
 
-TARGET_UC:=$(shell echo $(TARGET) | tr a-z A-Z)
-TARGET_LC:=$(shell echo $(TARGET) | tr A-Z a-z)
+TARGET_UC:=MAX78000
+TARGET_LC:=max78000
 
 # The build directory
 ifeq "$(BUILD_DIR)" ""
@@ -104,3 +106,4 @@ include $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source/GCC/gcc.mk
 else
 include $(CMSIS_ROOT)/Device/Maxim/$(TARGET_UC)/Source/GCC/gcc_riscv.mk
 endif
+

@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (C) 2016 Maxim Integrated Products, Inc., All Rights Reserved.
+/******************************************************************************
+ * Copyright (C) 2022 Maxim Integrated Products, Inc., All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -29,9 +29,6 @@
  * property whatsoever. Maxim Integrated Products, Inc. retains all
  * ownership rights.
  *
- * $Date: 2018-09-05 16:46:11 -0500 (Wed, 05 Sep 2018) $
- * $Revision: 37695 $
- *
  ******************************************************************************/
 
 /**
@@ -58,9 +55,9 @@
 int main(void)
 {
     int count = 0;
-    
+
     printf("Hello World!\n");
-    
+
     while (1) {
         LED_On(LED1);
         MXC_Delay(500000);

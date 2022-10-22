@@ -2,18 +2,47 @@
 
 This example showcases the main functions of the MAX78000's flash controller.
 
-The MAX78000's flash is initially cleared by performing a mass erase. Several pages are then initialized with data and are subsequently erased a page at a time. 
+The MAX78000's entire flash, including all application code, is initially cleared by performing a mass erase.  As such, the entire example is set to execute out of SRAM by using the special "_ram" linkerfile (see the project.mk and code comments for more details).  Then, a test pattern is written into flash one 32-bit word at a time and verified.  By default the entire flash bank is excercised, but this can be controlled with the `NUM_TEST_PAGES` compiler definition in `main.c`
 
-## Required Connections
+## Building Firmware
 
-##### Building Firmware:
-Before building firmware you must select the correct value for _BOARD_  in "Makefile", either "EvKit\_V1" or "FTHR\_RevA", depending on the EV kit you are using to run the example.
+### Command-line
 
-After doing so, navigate to the directory where the example is located using a terminal window. Enter the following comand to build all of the files needed to run the example.
+1. This example comes pre-configured for the MAX78000EVKIT by default.  Select the correct value for _BOARD_, either `EvKit_V1` (for the MAX78000EVKIT) or `FTHR_RevA` (for the MAX78000FTHR) by editing the project `project.mk`:
 
-```
-$ make
-```
+    ```Makefile
+    # Specify the board used
+    BOARD=EvKit_V1
+    #BOARD=FTHR_RevA
+    ```
+
+2. Build the project with the command:
+
+    ```shell
+    make -r -j 8 all
+    ```
+
+### Visual Studio Code
+
+Visual Studio Code support is included via the VSCode-Maxim project files.  See:  [Readme](./.vscode/readme.md)
+
+1. Select the correct value for `"board"` in `.vscode/settings.json` - either `EvKit_V1` (for the MAX78000EVKIT) or `FTHR_RevA` (for the MAX78000FTHR)
+
+2. Run the "build" task with `CTRL+SHIFT+B` -> `build`.
+
+3. Run the "flash & run" build task (`CTRL+SHIFT+B` -> `flash & run`) to run the example.  Since the example executes entirely out of SRAM it must be launched this way.
+
+### Eclipse
+
+1. Import the project into your Eclipse workspace.
+
+2. Open the project properties and navigate to `C/C++ Build` -> `Environment`.
+
+3. Set the `BOARD` variable to `EvKit_V1` (for the MAX78000EVKIT) or FTHR_RevA (for the MAX78000FTHR).
+
+4. Run "build project" (right click -> "Build Project" or Hammer button)
+
+5. Debug the project to flash and run it.
 
 ##### Required Connections:
 If using the standard EV Kit (EvKit_V1):
@@ -29,11 +58,13 @@ If using the Featherboard (FTHR_RevA):
 
 ```
 ***** Flash Control Example *****
-Flash erased.
-Flash mass erase is verified.
-Writing 6144 32-bit words to flash
-Size of testdata : 24576
-Word 0 written properly and has been verified.
+This example executes entirely from RAM, and
+ will mass erase the entire flash contents before
+ writing and verifying a test pattern from
+ ADDR: 0x10000000 to ADDR: 0x10020000
+Push PB1 to begin
+Wiping flash...
+Flash has been successfully wiped.Flash mass erase is verified.
 Word 1 written properly and has been verified.
 Word 2 written properly and has been verified.
 Word 3 written properly and has been verified.
@@ -49,10 +80,37 @@ Word 12 written properly and has been verified.
 Word 13 written properly and has been verified.
 Word 14 written properly and has been verified.
 Word 15 written properly and has been verified.
-Continuing for 6128 more words...
-Page Erase is verified
-Flash Erase is verified
+Continuing for 131056 more words...
+3.89%
+7.78%
+11.66%
+15.55%
+19.44%
+23.33%
+27.22%
+31.10%
+34.99%
+38.88%
+42.77%
+46.66%
+50.54%
+54.43%
+58.32%
+62.21%
+66.09%
+69.98%
+73.87%
+77.76%
+81.65%
+85.53%
+89.42%
+93.31%
+97.20%
+100%
+Done!
+Successfully verified erasure of page 2 (ADDR: 0x10004000)
+Testing partial erasure between pages 1 (ADDR: 0x10000080) and 2 (ADDR: 0x10003b00)...
+Successfully verified partial erasure.
+Example succeeded!
 
-Example Succeeded
 ```
-

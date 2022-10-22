@@ -39,10 +39,10 @@ TARGET_UC:=$(shell echo $(TARGET) | tr a-z A-Z)
 TARGET_LC:=$(shell echo $(TARGET) | tr A-Z a-z)
 
 # Specify the library variant.
-ifeq "$(MFLOAT_FLAGS)" "hardfp"
+ifeq "$(MFLOAT_ABI)" "hardfp"
 LIBRARY_VARIANT=hardfp
 else
-ifeq "$(MFLOAT_FLAGS)" "hard"
+ifeq "$(MFLOAT_ABI)" "hard"
 LIBRARY_VARIANT=hardfp
 else
 LIBRARY_VARIANT=softfp

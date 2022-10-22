@@ -1,5 +1,5 @@
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/cameraif.h:55: warning: missing title after \defgroup cameraif
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:247: warning: end of file while inside a group
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:328: warning: end of file while inside a group
 
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/aes.h:94: warning: unable to resolve reference to `mxc_aes_enc_type_t' for \ref command
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:459: warning: argument 'None' of command @param is not found in the argument list of MAX_ADC_Flush_FIFO(void)
@@ -23,8 +23,8 @@
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:396: warning: argument 'Pointer' of command @param is not found in the argument list of MXC_ADC_GetData(int *outdata)
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:402: warning: The following parameters of MXC_ADC_GetData(int *outdata) are not documented:
   parameter 'outdata'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:545: warning: argument 'Channel' of command @param is not found in the argument list of MXC_ADC_LowPowerModeDividerSelect(mxc_adc_div_lpmode_t div_lpmode)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:551: warning: The following parameters of MXC_ADC_LowPowerModeDividerSelect(mxc_adc_div_lpmode_t div_lpmode) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:548: warning: argument 'Channel' of command @param is not found in the argument list of MXC_ADC_LowPowerModeDividerSelect(mxc_adc_div_lpmode_t div_lpmode)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:554: warning: The following parameters of MXC_ADC_LowPowerModeDividerSelect(mxc_adc_div_lpmode_t div_lpmode) are not documented:
   parameter 'div_lpmode'
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:414: warning: argument 'Pointer' of command @param is not found in the argument list of MXC_ADC_SlotConfiguration(mxc_adc_slot_req_t *req, uint32_t slot_length)
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:414: warning: argument 'Number' of command @param is not found in the argument list of MXC_ADC_SlotConfiguration(mxc_adc_slot_req_t *req, uint32_t slot_length)
@@ -34,29 +34,29 @@
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:500: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ADC_SlotsConfig(mxc_adc_conversion_req_t *req)
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:506: warning: The following parameters of MXC_ADC_SlotsConfig(mxc_adc_conversion_req_t *req) are not documented:
   parameter 'req'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:320: warning: unable to resolve reference to `mxc_adc_conversion_req_t' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:320: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ADC_StartConversionDMA(mxc_adc_conversion_req_t *req, int *data, void(*callback)(int, int))
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:328: warning: The following parameters of MXC_ADC_StartConversionDMA(mxc_adc_conversion_req_t *req, int *data, void(*callback)(int, int)) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:319: warning: unable to resolve reference to `mxc_adc_conversion_req_t' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:319: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ADC_StartConversionDMA(mxc_adc_conversion_req_t *req, int *data, void(*callback)(int, int))
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:327: warning: The following parameters of MXC_ADC_StartConversionDMA(mxc_adc_conversion_req_t *req, int *data, void(*callback)(int, int)) are not documented:
   parameter 'data'
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:491: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ADC_TriggerConfig(mxc_adc_conversion_req_t *req)
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:497: warning: The following parameters of MXC_ADC_TriggerConfig(mxc_adc_conversion_req_t *req) are not documented:
   parameter 'req'
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:431: warning: argument 'None' of command @param is not found in the argument list of MXC_ADC_TS_SelectDisable(void)
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:424: warning: argument 'None' of command @param is not found in the argument list of MXC_ADC_TS_SelectEnable(void)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:521: warning: argument 'Temperature' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:521: warning: argument 'ADC' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:521: warning: argument 'external' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:521: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:530: warning: The following parameters of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:522: warning: argument 'Temperature' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:522: warning: argument 'ADC' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:522: warning: argument 'external' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:522: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:531: warning: The following parameters of MXC_ConvertTemperature_ToC(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp) are not documented:
   parameter 'tempSensor_Readout'
   parameter 'ref'
   parameter 'ext_ref'
   parameter 'temp'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:533: warning: argument 'Temperature' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:533: warning: argument 'ADC' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:533: warning: argument 'external' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:533: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:542: warning: The following parameters of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:535: warning: argument 'Temperature' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:535: warning: argument 'ADC' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:535: warning: argument 'external' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:535: warning: argument 'pointer' of command @param is not found in the argument list of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/adc.h:544: warning: The following parameters of MXC_ConvertTemperature_ToF(uint16_t tempSensor_Readout, mxc_adc_refsel_t ref, float ext_ref, float *temp) are not documented:
   parameter 'tempSensor_Readout'
   parameter 'ref'
   parameter 'ext_ref'
@@ -70,26 +70,14 @@
   parameter 'ref'
   parameter 'ext_ref'
   parameter 'temp_k'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:548: warning: argument 'flags' of command @param is not found in the argument list of MXC_CSI2_DMA_Config(uint8_t *dst_addr, uint32_t byte_cnt, uint32_t burst_size)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:552: warning: The following parameters of MXC_CSI2_DMA_Config(uint8_t *dst_addr, uint32_t byte_cnt, uint32_t burst_size) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:597: warning: argument 'flags' of command @param is not found in the argument list of MXC_CSI2_DMA_Config(uint8_t *dst_addr, uint32_t byte_cnt, uint32_t burst_size)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:601: warning: The following parameters of MXC_CSI2_DMA_Config(uint8_t *dst_addr, uint32_t byte_cnt, uint32_t burst_size) are not documented:
   parameter 'dst_addr'
   parameter 'byte_cnt'
   parameter 'burst_size'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:405: warning: argument 'flags' of command @param is not found in the argument list of MXC_CSI2_VFIFO_Config(mxc_csi2_vfifo_cfg_t *cfg)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:409: warning: The following parameters of MXC_CSI2_VFIFO_Config(mxc_csi2_vfifo_cfg_t *cfg) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:414: warning: argument 'flags' of command @param is not found in the argument list of MXC_CSI2_VFIFO_Config(mxc_csi2_vfifo_cfg_t *cfg)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:418: warning: The following parameters of MXC_CSI2_VFIFO_Config(mxc_csi2_vfifo_cfg_t *cfg) are not documented:
   parameter 'cfg'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:476: warning: argument 'payload0' of command @param is not found in the argument list of MXC_CSI2_VFIFO_SetDMAMode(mxc_csi2_dma_mode_t dma_mode)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:476: warning: argument 'payload1' of command @param is not found in the argument list of MXC_CSI2_VFIFO_SetDMAMode(mxc_csi2_dma_mode_t dma_mode)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:482: warning: The following parameters of MXC_CSI2_VFIFO_SetDMAMode(mxc_csi2_dma_mode_t dma_mode) are not documented:
-  parameter 'dma_mode'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:494: warning: argument 'payload0' of command @param is not found in the argument list of MXC_CSI2_VFIFO_SetRAWFormat(mxc_csi2_raw_format_t raw_format)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:494: warning: argument 'payload1' of command @param is not found in the argument list of MXC_CSI2_VFIFO_SetRAWFormat(mxc_csi2_raw_format_t raw_format)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:500: warning: The following parameters of MXC_CSI2_VFIFO_SetRAWFormat(mxc_csi2_raw_format_t raw_format) are not documented:
-  parameter 'raw_format'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:485: warning: argument 'payload0' of command @param is not found in the argument list of MXC_CSI2_VFIFO_SetRGBType(mxc_csi2_rgb_type_t rgb_type)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:485: warning: argument 'payload1' of command @param is not found in the argument list of MXC_CSI2_VFIFO_SetRGBType(mxc_csi2_rgb_type_t rgb_type)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/csi2.h:491: warning: The following parameters of MXC_CSI2_VFIFO_SetRGBType(mxc_csi2_rgb_type_t rgb_type) are not documented:
-  parameter 'rgb_type'
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/gpio.h:278: warning: argument 'cfg' of command @param is not found in the argument list of MXC_GPIO_DisableInt(mxc_gpio_regs_t *port, uint32_t mask)
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/gpio.h:282: warning: The following parameters of MXC_GPIO_DisableInt(mxc_gpio_regs_t *port, uint32_t mask) are not documented:
   parameter 'port'
@@ -116,34 +104,43 @@
   parameter 'port'
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/gpio.h:303: warning: explicit link request to 'callback_fn' could not be resolved
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/gpio.h:304: warning: explicit link request to 'callback_fn' could not be resolved
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2c.h:506: warning: The following parameters of MXC_I2C_ClearFlags(mxc_i2c_regs_t *i2c, unsigned int flags0, unsigned int flags1) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2c.h:501: warning: The following parameters of MXC_I2C_ClearFlags(mxc_i2c_regs_t *i2c, unsigned int flags0, unsigned int flags1) are not documented:
   parameter 'flags0'
   parameter 'flags1'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2c.h:499: warning: The following parameters of MXC_I2C_GetFlags(mxc_i2c_regs_t *i2c, unsigned int *flags0, unsigned int *flags1) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2c.h:494: warning: The following parameters of MXC_I2C_GetFlags(mxc_i2c_regs_t *i2c, unsigned int *flags0, unsigned int *flags1) are not documented:
   parameter 'flags0'
   parameter 'flags1'
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:198: warning: argument 'smple_sz' of command @param is not found in the argument list of MXC_I2S_CalculateClockDiv(uint32_t smpl_rate, mxc_i2s_wsize_t smpl_sz, uint32_t i2s_clk)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:206: warning: The following parameters of MXC_I2S_CalculateClockDiv(uint32_t smpl_rate, mxc_i2s_wsize_t smpl_sz, uint32_t i2s_clk) are not documented:
+  parameter 'smpl_sz'
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:267: warning: argument 'Pointer' of command @param is not found in the argument list of MXC_I2S_Transaction(mxc_i2s_req_t *i2s_req)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:273: warning: The following parameters of MXC_I2S_Transaction(mxc_i2s_req_t *i2s_req) are not documented:
+  parameter 'i2s_req'
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:276: warning: argument 'Pointer' of command @param is not found in the argument list of MXC_I2S_TransactionAsync(mxc_i2s_req_t *i2s_req)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/i2s.h:282: warning: The following parameters of MXC_I2S_TransactionAsync(mxc_i2s_req_t *i2s_req) are not documented:
+  parameter 'i2s_req'
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/icc.h:74: warning: The following parameters of MXC_ICC_ID(mxc_icc_regs_t *icc, mxc_icc_info_t cid) are not documented:
   parameter 'icc'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:204: warning: argument 'mask' of command @param is not found in the argument list of MXC_PT_ClearFlags(uint32_t flags)
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:204: warning: unable to resolve reference to `MXC_PT_INTFL_Register' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:208: warning: The following parameters of MXC_PT_ClearFlags(uint32_t flags) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:206: warning: argument 'mask' of command @param is not found in the argument list of MXC_PT_ClearFlags(uint32_t flags)
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:206: warning: unable to resolve reference to `MXC_PT_INTFL_Register' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:210: warning: The following parameters of MXC_PT_ClearFlags(uint32_t flags) are not documented:
   parameter 'flags'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:226: warning: The following parameters of MXC_PT_DisableRestart(unsigned channel, uint8_t restartIndex) are not documented:
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:228: warning: The following parameters of MXC_PT_DisableRestart(unsigned channel, uint8_t restartIndex) are not documented:
   parameter 'channel'
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:196: warning: unable to resolve reference to `MXC_PT_INTFL_Register' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:172: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:156: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:148: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:120: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:101: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:93: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:127: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:133: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:107: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/pt.h:198: warning: unable to resolve reference to `MXC_PT_INTFL_Register' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:177: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:161: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:153: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:125: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:106: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:98: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:132: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:138: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:112: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:140: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/sdhc.h:187: warning: unable to resolve reference to `SDHC_INTFL' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/uart.h:372: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:117: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/rtc.h:145: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/sdhc.h:196: warning: unable to resolve reference to `SDHC_INTFL' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/uart.h:371: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/uart.h:246: warning: unable to resolve reference to `UART' for \ref command
 /home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/uart.h:236: warning: unable to resolve reference to `UART' for \ref command
-/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/uart.h:406: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command
+/home/lparm/JenkinsTest/workspace/MnS/MSDK/Devices/AI87/MAX78002/Libraries/PeriphDrivers/Include/MAX78002/uart.h:405: warning: unable to resolve reference to `MXC_ERROR_CODES' for \ref command

@@ -1,5 +1,5 @@
 ################################################################################
- # Copyright (C) Maxim Integrated Products, Inc., All Rights Reserved.
+ # Copyright (C) 2019-2021 Maxim Integrated Products, Inc., All Rights Reserved.
  #
  # Permission is hereby granted, free of charge, to any person obtaining a
  # copy of this software and associated documentation files (the "Software"),
@@ -30,9 +30,16 @@
  # ownership rights.
  #
  ###############################################################################
+ 
+# Command-line option for overriding output filename. 
+# Ex: make all OUTFILE="filename" ... results in filename.elf
+ifneq "$(OUTFILE)" ""
+PROJECT=$(OUTFILE)
+endif
 
+# Default name of the build output file
 ifeq "$(PROJECT)" ""
-PROJECT=max78000
+PROJECT=mnist-riscv
 endif
 
 .PHONY: all arm release clean distclean riscv
@@ -60,7 +67,7 @@ riscv: buildrv/common_riscv.ld arm build/$(PROJECT).elf
 
 buildrv/$(PROJECT).elf: riscv arm build/$(PROJECT).elf buildrv/common_riscv.ld
 
-clean distclean:
+clean libclean distclean:
 	@$(MAKE) -f Makefile.ARM $@
 	@$(MAKE) -f Makefile.RISCV $@
 

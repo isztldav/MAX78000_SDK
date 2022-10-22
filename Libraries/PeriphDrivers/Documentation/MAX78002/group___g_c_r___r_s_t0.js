@@ -40,6 +40,8 @@ var group___g_c_r___r_s_t0 =
     [ "MXC_F_GCR_RST0_UART1_POS", "group___g_c_r___r_s_t0.html#ga94992fa56c8424914901306e9fbd8128", null ],
     [ "MXC_F_GCR_RST0_UART2", "group___g_c_r___r_s_t0.html#ga081a98c1b6ed1c6e5329264359ab2f30", null ],
     [ "MXC_F_GCR_RST0_UART2_POS", "group___g_c_r___r_s_t0.html#ga6951d88135400c9c5883e3b8567d8b6b", null ],
+    [ "MXC_F_GCR_RST0_USB", "group___g_c_r___r_s_t0.html#gacf37b9c6d823761f18a1a681a7a01d9c", null ],
+    [ "MXC_F_GCR_RST0_USB_POS", "group___g_c_r___r_s_t0.html#gaae8c0e19ae6c3a4e26922310c6166e55", null ],
     [ "MXC_F_GCR_RST0_WDT0", "group___g_c_r___r_s_t0.html#ga09e3616ed20f1c843abb15d6c2338cfa", null ],
     [ "MXC_F_GCR_RST0_WDT0_POS", "group___g_c_r___r_s_t0.html#ga4a7ca3e9fc666f24e80ef681f2b88573", null ]
 ];
