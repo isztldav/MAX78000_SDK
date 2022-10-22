@@ -115,7 +115,7 @@
 
 /***** Globals *****/
 
-volatile int DMA_FLAG = 1;
+volatile int DMA_FLAG;
 
 // RAW Line Buffers
 uint32_t RAW_ADDR0[IMAGE_WIDTH] __attribute__((aligned(4)))
